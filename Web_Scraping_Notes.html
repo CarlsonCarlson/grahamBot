@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scrapy Notes</title>
+</head>
+<body>
+<h1>Carlson's "every note you'll ever need" on web scraping</h1>
+<h2>Scrapy Notes</h2>
+<h3>General notes</h3>
+<p>
+    there are 2 selectors, xpath and css return selectors<br>
+    selectorMethod().get() gives you a string of the first one found
+    selectorMethod().getall() gives you a list of strings
+</p>
+<h3>Using CSS to find elements</h3>
+<p>
+    response.css('h3::text').get() -> gives you the text of the first h3 <br>
+    response.css(h3::text)[1].get() -> this gives you the second h3 and so on <br>
+    response.css('title::text').get() -> this gives you the text of title <br>
+    response.css('.CLASSNAME a').getall() -> gives you all of the links in the CLASSNAME (remember the . before the classname) <br>
+    .CLASSNAME lets you get that class <br>
+    <strong>after the classname you may do space then tag, to get a certain tag of a class</strong> example: '.CLASSNAME a' <br>
+    ::text is an option to take only text, it only goes at end of the single quotes <br>
+</p>
+<h3>Using xpath to find elements (more precise targeting than using css)</h3>
+wow such empty...
+<h3>Using regular expressions to find things</h3>
+<p>
+    instead of get or getall you can use re
+    you need to use r-strings ie. (r'hello') these don't process escape sequences and can make regular expressions (you can look these up)<br>
+    response.css('.CLASSNAME a').re(r'hi') -> this gets all the instances of hi in the selector<br>
+    response.css('.CLASSNAME a').re(r'hi \+w') -> this gets you all instances of hi {space} ANYWORD <br>
+    response.css('.CLASSNAME a').re(r'hi\+w') -> this gets you all instances of words that start with 'hi' <br>
+    response.css('.CLASSNAME a').re(r'(\+w) hi (\+w')) -> this get you all words before or after hi <br>
+</p>
+<h2>HTML Notes</h2>
+<p>
+    h1-h6 exist <br>
+    i is for icons <br>
+</p>
+<h3>Tables</h3>
+<p>
+    This is how they work <br>
+    tr is to make a new row <br>
+    td is to make a cell (d for data) <br>
+</p>
+    <table>
+    <tr>
+      <td>Cell A</td>
+      <td>Cell B</td>
+    </tr>
+    <tr>
+        <td>Cell C</td>
+        <td>Cell D</td>
+    </tr>
+    </table>
+<h3>Unordered list</h3>
+    <ul>
+        <li>Coffee</li>
+        <li>Tea</li>
+        <li>Milk</li>
+    </ul>
+ul = unordered list <br>
+li = list item
+<h2>Programming notes</h2>
+<p>
+    <strong>response.css('.historical_data_table td::text').getall()</strong> works on EPS and Stock price pages <br>
+    <strong>response.css('.table td::text').getall()</strong> works on PE ratio and current ratio pages
+</p>
+</body>
+</html>
