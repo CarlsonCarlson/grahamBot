@@ -1,9 +1,9 @@
 # grahamBot
 I will be using macrotrends for historical data since 2005
 
-ycharts seems to have data from earlier but I need an account.
-guru focus also has 30 year financials but you need an account
-for more in-depth analysis I will try one of these^
+ycharts seems to have data from earlier but I need an account. <br/>
+guru focus also has 30 year financials but you need an account <br/>
+for more in-depth analysis I will try one of these^ <br/>
 
 # TODO: 
 ## Stats to analyze in order of utility
