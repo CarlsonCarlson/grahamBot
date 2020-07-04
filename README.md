@@ -6,6 +6,17 @@ guru focus also has 30 year financials but you need an account <br/>
 for more in-depth analysis I will try one of these^ <br/>
 
 # TODO: 
+## Web scraping and Collection
+### make it get all the stats needed to analyze
+get earnings
+make it compile all stats into the *SAME* database
+## Data Analysis
+run calculations on EPS
+## UI elements
+make it so automatically gets the ticker of the company
+webscrape page that is a list of fortune 500 companies
+analyze all the companies
+
 ## Stats to analyze in order of utility
 diluted EPS increase by 1.33 in the past 10 years using three year averages at the beginning and end
 

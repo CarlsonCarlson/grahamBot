@@ -1,6 +1,5 @@
-import scrapy
 from scrapy.crawler import CrawlerProcess
-from grahamBot.grahamBot.spiders import eps_spider
+from grahamBot.grahamBot.spiders.eps_spider import EPSSpider
 
 
 class Stock:
@@ -17,8 +16,11 @@ class Stock:
 
     # TODO: call eps_spider and place dataframe in eps field
     def get_eps(self):
-        process = CrawlerProcess
-        process.crawl(eps_spider, self.name, self.ticker)
+        process = CrawlerProcess({})
+        spider = EPSSpider(self.name, self.ticker)
+        crawler = process.create_crawler(crawler_or_spidercls=spider)
+        process.crawl(crawler, self.name, self.ticker)
+        process.start()
         # wants a crawlerRunner object not a spider
     # do this an another function because it needs to happen after name and ticker are specified
     # self.eps =
