@@ -1,6 +1,6 @@
 # grahamBot
-I will be using macrotrends for historical data since 2005
 
+I will be using macrotrends for historical data since 2005 <br>
 ycharts seems to have data from earlier but I need an account. <br/>
 guru focus also has 30 year financials but you need an account <br/>
 for more in-depth analysis I will try one of these^ <br/>
@@ -8,7 +8,7 @@ for more in-depth analysis I will try one of these^ <br/>
 # TODO: 
 ## Web scraping and Collection
 ### make it get all the stats needed to analyze
-get earnings
+get dividend record <br>
 make it compile all stats into the *SAME* database
 ## Data Analysis
 run calculations on EPS
