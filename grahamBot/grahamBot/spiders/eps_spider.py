@@ -14,6 +14,8 @@ class EPSSpider(scrapy.Spider):
     # Pass in name and ticker when calling EPS spider
     def __init__(self, name, ticker, filepath, stock, *args, **kwargs):
         super(EPSSpider, self).__init__(*args, *kwargs)
+        self.name = name
+        self.ticker = ticker
         self.filepath = filepath
         self.stock = stock
         self.start_urls = \
@@ -21,7 +23,6 @@ class EPSSpider(scrapy.Spider):
              % (ticker, name)]
 
     def parse(self, response):
-        # source is a list
         year_list = response.xpath('//*[@id="style-1"]/div[1]/table/tbody/tr/td[1]/text()').getall()
         eps_list = response.xpath('//*[@id="style-1"]/div[1]/table/tbody/tr/td[2]/text()').getall()
         # Make pandas dataframe from two lists
@@ -29,9 +30,9 @@ class EPSSpider(scrapy.Spider):
                                    columns=['Year', 'EPS'])
         # Write file for now
         stat = response.url.split('/')[-1]
-        company_name = response.url.split('/')[-2]
-        ticker = response.url.split('/')[-3]
-        filename = '{}({}){}.txt'.format(ticker, company_name, stat)
+        # company_name = response.url.split('/')[-2]
+        # ticker = response.url.split('/')[-3]
+        filename = '{}({}){}.txt'.format(self.ticker, self.name, stat)
         complete_filename = os.path.join(self.filepath, filename)
         with open(complete_filename, 'w') as file:
             file.write(year_eps_df.to_string())

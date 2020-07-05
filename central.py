@@ -1,3 +1,6 @@
+from scrapy.crawler import CrawlerProcess
+from grahamBot.grahamBot.spiders.dividends_spider import DividendsSpider
+from grahamBot.grahamBot.spiders.eps_spider import EPSSpider
 import Stock
 import os
 
@@ -17,7 +20,14 @@ def main():
     except FileExistsError:
         pass
     stock = Stock.Stock(name, ticker, complete_path)
-    stock.get_eps()
+    process = CrawlerProcess({})
+    spider1 = EPSSpider(name=stock.name, ticker=stock.ticker, filepath=stock.dir, stock=stock)
+    spider2 = DividendsSpider(name=stock.name, ticker=stock.ticker, filepath=stock.dir, stock=stock)
+    crawler1 = process.create_crawler(crawler_or_spidercls=spider1)
+    crawler2 = process.create_crawler(crawler_or_spidercls=spider2)
+    process.crawl(crawler1, stock.name, stock.ticker, stock.dir, stock=stock)
+    process.crawl(crawler2, stock.name, stock.ticker, stock.dir, stock=stock)
+    process.start()
     print("Complete")
 
 
