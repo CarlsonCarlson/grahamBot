@@ -16,10 +16,10 @@ def main():
     complete_path = define_filepath(ticker, name)
     stock = Stock.Stock(name, ticker, complete_path)
     run_all_spiders(stock)
-    stock.write_report('div_df', 'dividend_payout')
-    stock.write_report('eps_df', 'earnings_per_share_diluted')
+    stock.write_dataframe('div_df', 'dividend_payout')
+    stock.write_dataframe('eps_df', 'earnings_per_share_diluted')
     stock.concatenate_all_df()
-    stock.write_report('main_df', 'main_report')
+    stock.write_dataframe('main_df', 'main_report')
     print("Complete")
 
 
