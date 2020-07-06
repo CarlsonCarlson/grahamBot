@@ -1,5 +1,14 @@
 # grahamBot
+## Current Features
+Asks for company name and ticker <br>
+Writes 3 reports into 'written_files' directory and prints the main report for you at application end <br>
+Reports:
+    EPS Report: Annual earnings per share since 2005. <br>
+    Dividend Payout Report: Quarterly dividend payouts since 1989. <br>
+    Main Report: all reports merged into one. <br>
 
+
+## For my reference
 I will be using macrotrends for historical data since 2005 <br>
 ycharts seems to have data from earlier but I need an account. <br/>
 guru focus also has 30 year financials but you need an account <br/>
