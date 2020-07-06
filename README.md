@@ -8,7 +8,6 @@ for more in-depth analysis I will try one of these^ <br/>
 # TODO: 
 ## Web scraping and Collection
 ### make it get all the stats needed to analyze
-get dividend record <br>
 make it compile all stats into the *SAME* database
 ## Data Analysis
 run calculations on EPS

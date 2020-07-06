@@ -10,6 +10,7 @@ class Stock:
         self.name = name
         self.ticker = ticker
         self.dir = directory
+        self.main_df = None
         self.eps_df = None
         self.div_df = None
         # TODO: when name or ticker is not found change this to do an auto complete
@@ -30,3 +31,6 @@ class Stock:
 
     def set_div(self, div_df):
         self.div_df = div_df
+
+    def concatenate_df(self):
+        self.div_df
