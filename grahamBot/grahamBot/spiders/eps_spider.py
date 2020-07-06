@@ -29,12 +29,12 @@ class EPSSpider(scrapy.Spider):
         year_eps_df = pd.DataFrame(np.column_stack([year_list, eps_list]),
                                    columns=['Year', 'EPS'])
         # Write file for now
-        stat = response.url.split('/')[-1]
+        # stat = response.url.split('/')[-1]
         # company_name = response.url.split('/')[-2]
         # ticker = response.url.split('/')[-3]
-        filename = '{}({}){}.txt'.format(self.ticker, self.name, stat)
-        complete_filename = os.path.join(self.filepath, filename)
-        with open(complete_filename, 'w') as file:
-            file.write(year_eps_df.to_string())
-            file.close()
+        # filename = '{}({}){}.txt'.format(self.ticker, self.name, stat)
+        # complete_filename = os.path.join(self.filepath, filename)
+        # with open(complete_filename, 'w') as file:
+        #     file.write(year_eps_df.to_string())
+        #     file.close()
         Stock.Stock.set_eps(self.stock, year_eps_df)

@@ -23,20 +23,17 @@ class DividendsSpider(scrapy.Spider):
              % ticker]
 
     def parse(self, response):
-        # year_list has '-' after each entry, I will need to take these out in the data frame
         year_list = response.xpath('/html/body/script/text()').re(r'\d\d\d\d-')
         # dividend_payout_list has '"ttm_d":' before every entry, if somehow a stock has double digit yields
         # this wont work
         dividend_payout_list = response.xpath('/html/body/script/text()').re(r'"ttm_d":\S\S\S\S')
+        # TODO: if i cant get dataframe replace to work i can do a standard python replace in list using for each loop
         # Make pandas dataframe from two lists
         year_div_payout_df = pd.DataFrame(np.column_stack([year_list, dividend_payout_list]),
                                           columns=['Year', 'Dividend Payout'])
-        # Write file for now
-        # company_name = response.url.split('/')[-2]
-        # ticker = response.url.split('/')[-3]
-        filename = '{}({})dividend_payout.txt'.format(self.ticker, self.name)
-        complete_filename = os.path.join(self.filepath, filename)
-        with open(complete_filename, 'w') as file:
-            file.write(year_div_payout_df.to_string())
-            file.close()
+
+        # clean the dataframe before setting it
+        # uses dict notation to replace the key with its corresponding value
+        year_div_payout_df = year_div_payout_df.replace(to_replace={'-': '', r'"ttm_d":': '$'}, regex=True)
+        print(year_div_payout_df.to_string())
         Stock.Stock.set_div(self.stock, year_div_payout_df)

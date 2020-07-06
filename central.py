@@ -6,6 +6,7 @@ import os
 
 
 def main():
+    # TODO: Make it able to find the missing field (name or ticker)
     name = input("What is the name of the stock you want to research? ")
     name = name.lower()
     ticker = input("What is the ticker symbol of this stock? ")
@@ -13,6 +14,8 @@ def main():
     complete_path = define_filepath(ticker, name)
     stock = Stock.Stock(name, ticker, complete_path)
     run_all_spiders(stock)
+    stock.write_report('div_df', 'dividend_payout')
+    stock.write_report('eps_df', 'earnings_per_share_diluted')
     print("Complete")
 
 
