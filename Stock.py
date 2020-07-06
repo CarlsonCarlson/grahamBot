@@ -1,8 +1,5 @@
-# from scrapy.crawler import CrawlerProcess
-# from grahamBot.grahamBot.spiders.eps_spider import EPSSpider
-# from grahamBot.grahamBot.spiders.dividends_spider import DividendsSpider
-# import pandas as pd
-# import numpy as np
+import pandas as pd
+import numpy as np
 import os
 
 
@@ -20,18 +17,13 @@ class Stock:
         else:
             self.complete = False
 
-    def set_dir(self, directory):
-        self.dir = directory
+    def set_attr(self, attribute_name: str, attribute_value) -> None:
+        setattr(self, attribute_name, attribute_value)
 
-    def set_eps(self, eps_df):
-        self.eps_df = eps_df
-
-    def set_div(self, div_df):
-        self.div_df = div_df
-
-    # TODO: finish this function once you clean div_df
-    # def concatenate_df(self):
-    #     self.div_df
+    def concatenate_all_df(self):
+        # TODO: combine dataframes correctly
+        self.main_df = self.div_df.merge(self.eps_df, how='left')
+        print(self.main_df.to_string())
 
     def write_report(self, df_name: str, report_name: str) -> None:
         # can only be used once file_path and the chosen dataframes are defined in Stock

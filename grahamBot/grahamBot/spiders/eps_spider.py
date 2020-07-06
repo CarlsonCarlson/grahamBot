@@ -28,13 +28,8 @@ class EPSSpider(scrapy.Spider):
         # Make pandas dataframe from two lists
         year_eps_df = pd.DataFrame(np.column_stack([year_list, eps_list]),
                                    columns=['Year', 'EPS'])
-        # Write file for now
-        # stat = response.url.split('/')[-1]
-        # company_name = response.url.split('/')[-2]
-        # ticker = response.url.split('/')[-3]
-        # filename = '{}({}){}.txt'.format(self.ticker, self.name, stat)
-        # complete_filename = os.path.join(self.filepath, filename)
-        # with open(complete_filename, 'w') as file:
-        #     file.write(year_eps_df.to_string())
-        #     file.close()
-        Stock.Stock.set_eps(self.stock, year_eps_df)
+
+        # TODO: Clean '$'s if it needs ints to run averages
+        # Below doesnt work
+        # year_eps_df = year_eps_df.replace(to_replace={r'$': ''}, regex=True)
+        Stock.Stock.set_attr(self.stock, 'eps_df', year_eps_df)
