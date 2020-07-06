@@ -10,6 +10,13 @@ def main():
     name = name.lower()
     ticker = input("What is the ticker symbol of this stock? ")
     ticker = ticker.upper()
+    complete_path = define_filepath(ticker, name)
+    stock = Stock.Stock(name, ticker, complete_path)
+    run_all_spiders(stock)
+    print("Complete")
+
+
+def define_filepath(ticker, name) -> str:
     # make directory for files to go in
     working_dir = os.getcwd()
     print(working_dir)
@@ -19,7 +26,10 @@ def main():
         os.makedirs(complete_path)
     except FileExistsError:
         pass
-    stock = Stock.Stock(name, ticker, complete_path)
+    return complete_path
+
+
+def run_all_spiders(stock):
     process = CrawlerProcess({})
     spider1 = EPSSpider(name=stock.name, ticker=stock.ticker, filepath=stock.dir, stock=stock)
     spider2 = DividendsSpider(name=stock.name, ticker=stock.ticker, filepath=stock.dir, stock=stock)
@@ -28,7 +38,6 @@ def main():
     process.crawl(crawler1, stock.name, stock.ticker, stock.dir, stock=stock)
     process.crawl(crawler2, stock.name, stock.ticker, stock.dir, stock=stock)
     process.start()
-    print("Complete")
 
 
 if __name__ == '__main__':
