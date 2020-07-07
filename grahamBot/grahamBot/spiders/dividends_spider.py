@@ -1,6 +1,5 @@
 import scrapy
 import pandas as pd
-import numpy as np
 import Stock
 
 
@@ -26,16 +25,24 @@ class DividendsSpider(scrapy.Spider):
         # dividend_payout_list has '"ttm_d":' before every entry, if somehow a stock has double digit yields
         # this wont work
         dividend_payout_list = response.xpath('/html/body/script/text()').re(r'"ttm_d":\S\S\S\S')
-        # Make pandas dataframe from two lists
-        year_div_payout_df = pd.DataFrame(np.column_stack([year_list, dividend_payout_list]),
-                                          columns=['Year', 'Div.Payout'])
+
+        # Create series of correct type
+        div_series = pd.Series(dividend_payout_list)
+        div_series = div_series.replace(to_replace=r'"ttm_d":', value='', regex=True)
+        div_series = div_series.astype(float)
+        year_series = pd.Series(year_list)
+        year_series = year_series.replace(to_replace='-', value='', regex=True)
+        year_series = pd.to_datetime(year_series)
+
+        # Make pandas dataframe from two series
+        year_div_payout_df = pd.DataFrame(columns=['Year', 'Div.Payout'])
+        year_div_payout_df['Year'] = year_series
+        year_div_payout_df['Div.Payout'] = div_series
 
         # clean the dataframe before setting it
-        # uses dict notation to replace the key with its corresponding value
-        year_div_payout_df = year_div_payout_df.replace(to_replace={'-': '', r'"ttm_d":': '$'}, regex=True)
-        # TODO: if calculations are hard using quarterly, make groups by year and
-        #  make new dataframe with quarterly averages as annual values
-        # year_div_payout_df = year_div_payout_df.groupby(by='Year')
-        # print(year_div_payout_df)
+        year_div_payout_df = year_div_payout_df.groupby(['Year']).mean()
+        year_div_payout_df['Div.Payout'] = year_div_payout_df['Div.Payout'].round(decimals=2)
+        year_div_payout_df = year_div_payout_df.reset_index()
+        # apparently its already a dataframe?!?!
 
         Stock.Stock.set_attr(self.stock, "div_df", year_div_payout_df)
