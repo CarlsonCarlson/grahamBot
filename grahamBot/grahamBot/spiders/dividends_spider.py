@@ -45,4 +45,4 @@ class DividendsSpider(scrapy.Spider):
         year_div_payout_df = year_div_payout_df.reset_index()
         # apparently its already a dataframe?!?!
 
-        Stock.Stock.set_attr(self.stock, "div_df", year_div_payout_df)
+        Stock.Stock.add_first_df_to_main(self.stock, year_div_payout_df)
