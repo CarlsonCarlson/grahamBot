@@ -1,11 +1,7 @@
 # grahamBot
 ## Current Features
 Asks for company name and ticker <br>
-Writes 3 reports into 'written_files' directory and prints the main report for you at application end <br>
-Reports:
-    EPS Report: Annual earnings per share since 2005. <br>
-    Dividend Payout Report: Quarterly dividend payouts since 1989. <br>
-    Main Report: all reports merged into one. <br>
+Writes report of all annual EPS and dividend payouts since 1989 <br>
 
 
 ## For my reference
