@@ -43,6 +43,7 @@ class DividendsSpider(scrapy.Spider):
         year_div_payout_df = year_div_payout_df.groupby(['Year']).mean()
         year_div_payout_df['Div.Payout'] = year_div_payout_df['Div.Payout'].round(decimals=2)
         year_div_payout_df = year_div_payout_df.reset_index()
+        print(year_div_payout_df)
         # apparently its already a dataframe?!?!
 
         Stock.Stock.add_first_df_to_main(self.stock, year_div_payout_df)

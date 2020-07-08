@@ -1,7 +1,9 @@
 # grahamBot
+## Currently down, wait until tommorrow for me to push again
 ## Current Features
 Asks for company name and ticker <br>
 Writes report of all annual EPS and dividend payouts since 1989 <br>
+Writes report on if EPS increased by 33% in the last 10 years <br>
 
 
 ## For my reference
