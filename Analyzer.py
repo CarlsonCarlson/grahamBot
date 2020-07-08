@@ -16,14 +16,11 @@ class Analyzer:
                                                         earnings_series.size - 13]].mean()
         # 3 year trailing average since present
         trailing_average_present = earnings_series[-3:].mean().round(decimals=2)
-        print("trailing_average_10_years_ago: {}".format(trailing_average_10_years_ago))
-        print("trailing_average_present: {}".format(trailing_average_present))
         percent_inc = round(trailing_average_present / trailing_average_10_years_ago, 2)
-        print("percent increase: {}".format(percent_inc))
         criteria_passed = 'Uncertain'
         if percent_inc >= 1.33:
             criteria_passed = 'Yes'
         elif percent_inc < 1.33:
             criteria_passed = 'No'
-        self.stock.append_calc_result('EPS increased by 33% over the last 10 years?',
+        self.stock.append_calc_result('EPS increased by 33%?',
                                       percent_inc, criteria_passed)

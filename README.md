@@ -1,5 +1,4 @@
 # grahamBot
-## Currently down, wait until tommorrow for me to push again
 ## Current Features
 Asks for company name and ticker <br>
 Writes report of all annual EPS and dividend payouts since 1989 <br>
@@ -16,7 +15,6 @@ for more in-depth analysis I will try one of these^ <br/>
 ## Web scraping and Collection
 ### make it get all the stats needed to analyze
 ## Data Analysis
-run calculations on EPS
 ## UI elements
 make it so automatically gets the ticker of the company
 webscrape page that is a list of fortune 500 companies

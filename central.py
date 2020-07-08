@@ -4,22 +4,23 @@ from grahamBot.grahamBot.spiders.eps_spider import EPSSpider
 import Stock
 import Analyzer
 import os
+import pandas as pd
 
 
 def main():
     # TODO: Make it able to find the missing field (name or ticker)
-    # name = input("What is the name of the stock you want to research? ")
-    # name = name.lower()
-    # ticker = input("What is the ticker symbol of this stock? ")
-    # ticker = ticker.upper()
-    name = 'apple'
-    ticker = 'AAPL'
+    name = input("What is the name of the stock you want to research? ")
+    name = name.lower()
+    ticker = input("What is the ticker symbol of this stock? ")
+    ticker = ticker.upper()
+    # name = 'apple'
+    # ticker = 'AAPL'
     complete_path = define_filepath(ticker, name)
     stock = Stock.Stock(name, ticker, complete_path)
     run_all_spiders(stock)
     run_all_algs(stock)
     stock.write_dataframe('main_report')
-    print(stock.calculations_df.to_string())
+    print(stock.calculations_df.to_string(justify='center'))
     stock.write_calc_report()
     print("Complete")
 
