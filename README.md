@@ -21,6 +21,7 @@ use year as index for better readibility and intuition
 make it so automatically gets the ticker of the company
 webscrape page that is a list of fortune 500 companies
 analyze all the companies
+create schema_df to explain each criterion
 
 ## Stats to analyze in order of utility
 diluted EPS increase by 1.33 in the past 10 years using three year averages at the beginning and end
