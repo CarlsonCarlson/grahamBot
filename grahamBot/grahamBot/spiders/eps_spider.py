@@ -37,4 +37,4 @@ class EPSSpider(scrapy.Spider):
         year_eps_df = year_eps_df.sort_values(by='Year').reset_index(drop=True)
 
         # Concatenate to main dataframe
-        Stock.Stock.concatenate_df(self.stock, year_eps_df)
+        Stock.Stock.add_first_df_to_main(self.stock, year_eps_df)

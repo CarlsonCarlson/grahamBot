@@ -15,6 +15,7 @@ for more in-depth analysis I will try one of these^ <br/>
 ## Web scraping and Collection
 ### make it get all the stats needed to analyze
 ## Data Analysis
+make eps go first, then dividends, use addfirst on eps and concat on dividends
 ## UI elements
 make it so automatically gets the ticker of the company
 webscrape page that is a list of fortune 500 companies

@@ -19,8 +19,8 @@ class Stock:
     def set_attr(self, attribute_name: str, attribute_value) -> None:
         setattr(self, attribute_name, attribute_value)
 
-    def add_first_df_to_main(self, df_to_concat):
-        self.main_df = self.main_df.append(df_to_concat)
+    def add_first_df_to_main(self, df_to_append):
+        self.main_df = self.main_df.append(df_to_append)
 
     def concatenate_df(self, df_to_concat):
         self.main_df = self.main_df.merge(df_to_concat, on='Year', how='outer')
@@ -36,7 +36,7 @@ class Stock:
         complete_filename = os.path.join(self.dir, filename)
         # gets the self. of df_name
         with open(complete_filename, 'w') as file:
-            file.write(self.main_df.to_string(justify='center', na_rep='None', index=False))
+            file.write(self.main_df.to_string(justify='center', na_rep='None', index=True))
             file.close()
 
     def append_calc_result(self, calc_title: str, calc_result, criteria_passed: str) -> None:
@@ -52,5 +52,5 @@ class Stock:
     def write_calc_report(self):
         filename = os.path.join(self.dir, 'graham_report.txt')
         with open(filename, 'w') as file:
-            file.write(self.calculations_df.to_string(justify='center', index=False))
+            file.write(self.calculations_df.to_string(justify='center', index=True))
             file.close()
