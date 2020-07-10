@@ -8,13 +8,13 @@ import pandas as pd
 
 
 def main():
-    # TODO: Make it able to find the missing field (name or ticker)
-    # name = input("What is the name of the stock you want to research? ")
-    # name = name.lower()
-    # ticker = input("What is the ticker symbol of this stock? ")
-    # ticker = ticker.upper()
-    name = 'tesla'
-    ticker = 'tsla'
+    # TODO: remove leading or trailing spaces
+    name = input("What is the name of the stock you want to research? ")
+    name = name.lower()
+    ticker = input("What is the ticker symbol of this stock? ")
+    ticker = ticker.upper()
+    # name = 'walmart'
+    # ticker = 'wmt'
     complete_path = define_filepath(ticker, name)
     stock = Stock.Stock(name, ticker, complete_path)
     run_all_spiders(stock)
@@ -39,10 +39,11 @@ def define_filepath(ticker, name) -> str:
 
 
 def run_all_spiders(stock):
+    # TODO: find out how to make spiders run in the order you want
     # Dividends goes first because it has more rows (since 1989)
     process = CrawlerProcess({})
-    spider1 = EPSSpider(name=stock.name, ticker=stock.ticker, filepath=stock.dir, stock=stock)
-    spider2 = DividendsSpider(name=stock.name, ticker=stock.ticker, filepath=stock.dir, stock=stock)
+    spider1 = DividendsSpider(name=stock.name, ticker=stock.ticker, filepath=stock.dir, stock=stock)
+    spider2 = EPSSpider(name=stock.name, ticker=stock.ticker, filepath=stock.dir, stock=stock)
     crawler1 = process.create_crawler(crawler_or_spidercls=spider1)
     crawler2 = process.create_crawler(crawler_or_spidercls=spider2)
     process.crawl(crawler1, stock.name, stock.ticker, stock.dir, stock=stock)

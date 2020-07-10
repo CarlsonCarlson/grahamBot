@@ -1,6 +1,5 @@
 import scrapy
 import pandas as pd
-import Stock
 
 
 # you have to start a scrapy project
@@ -29,7 +28,9 @@ class DividendsSpider(scrapy.Spider):
         # Create series of correct type
         div_series = pd.Series(dividend_payout_list)
         div_series = div_series.replace(to_replace=r'"ttm_d":', value='', regex=True)
+        # print(div_series)
 
+        # TODO: handle empty data
         # if the stat series is null after cleaning we're gonna skip the rest of the code
         if div_series.isna()[0]:
             div_series = div_series.astype(float)
@@ -41,14 +42,13 @@ class DividendsSpider(scrapy.Spider):
             year_div_payout_df = pd.DataFrame(columns=['Year', 'Div.Payout'])
             year_div_payout_df['Year'] = year_series
             year_div_payout_df['Div.Payout'] = div_series
-            # print(year_div_payout_df)
 
             # clean the dataframe before setting it
             year_div_payout_df = year_div_payout_df.groupby(['Year']).mean()
             year_div_payout_df['Div.Payout'] = year_div_payout_df['Div.Payout'].round(decimals=2)
-            year_div_payout_df = year_div_payout_df.set_index('Year')
-            print(year_div_payout_df)
-            # apparently its already a dataframe?!?!
+            # year_div_payout_df = year_div_payout_df.sort_values(by='Year', ascending=False)
+            year_div_payout_df = year_div_payout_df.reset_index()
+            # year_div_payout_df.set_index('Year', inplace=True)
+            # print(year_div_payout_df)
 
-            self.stock.concatenate_df(self.stock, year_div_payout_df)
-
+            self.stock.concatenate_df(year_div_payout_df)

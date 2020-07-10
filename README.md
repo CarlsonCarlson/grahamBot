@@ -15,12 +15,11 @@ for more in-depth analysis I will try one of these^ <br/>
 ## Web scraping and Collection
 ### make it get all the stats needed to analyze
 ## Data Analysis
-use year as index for better readibility and intuition
-exception handling
 ## UI elements
 make it so automatically gets the ticker of the company
 webscrape page that is a list of fortune 500 companies
 analyze all the companies
+## Low priority
 create schema_df to explain each criterion
 
 ## Stats to analyze in order of utility
