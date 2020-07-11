@@ -15,6 +15,8 @@ def main():
     ticker = ticker.upper()
     # name = 'walmart'
     # ticker = 'wmt'
+    # name = 'amazon'
+    # ticker = 'amzn'
     complete_path = define_filepath(ticker, name)
     stock = Stock.Stock(name, ticker, complete_path)
     run_all_spiders(stock)

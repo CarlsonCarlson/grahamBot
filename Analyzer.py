@@ -1,4 +1,5 @@
 import pandas as pd
+import datetime
 
 
 # TODO: work on Analyzer
@@ -11,14 +12,15 @@ class Analyzer:
         #  averages at the beginning and end
         # 3 year trailing average from 10 years ago
 
-        current_year = pd.datetime.now().year
+        current_year = datetime.datetime.now().year
         df = self.stock.main_df
 
         # Calculate present three year trailing average
         present_3_years_filt = df['Year'].dt.year > (current_year - 3)
         present_3_years_df = df.loc[present_3_years_filt, ['Year', 'EPS']]
+        present_3_years_df.dropna(inplace=True)
         most_current_year = present_3_years_df.iloc[0]['Year'].year  # We need 10 years before this year
-        present_num_years_used = present_3_years_df['Year'].size
+        present_num_years_used = present_3_years_df['EPS'].size
         trailing_average_present = present_3_years_df['EPS'].mean()
 
         # TODO: feature idea: you could make it use the most recent 3 year average from atleast 10 years ago
@@ -59,6 +61,7 @@ class Analyzer:
             made_note = True
             note = note + 'Used {}-{} average'.format(present_3_years_df['Year'].min().year,
                                                       present_3_years_df['Year'].max().year)
+
         if made_note:
             note = note + ' instead of default 3 year trailing averages.'
 

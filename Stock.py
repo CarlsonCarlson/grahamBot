@@ -51,7 +51,7 @@ class Stock:
         self.calculations_df[calc_title] = list_to_append
 
     def write_calc_report(self):
-        filename = os.path.join(self.dir, 'graham_report.txt')
+        filename = os.path.join(self.dir, '{}({})graham_report.txt'.format(self.ticker, self.name))
         with open(filename, 'w') as file:
             file.write(self.calculations_df.to_string(justify='center', index=True))
             file.close()
