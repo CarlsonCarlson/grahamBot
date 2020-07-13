@@ -1,12 +1,7 @@
 import scrapy
 import pandas as pd
-import numpy as np
-import Stock
 
 
-# you have to start a scrapy project
-
-# I need to make a spider
 class EPSSpider(scrapy.Spider):
     name = 'EPS'
 
@@ -22,6 +17,10 @@ class EPSSpider(scrapy.Spider):
              % (ticker, name)]
 
     def parse(self, response):
+        print("running eps")
+        # print("testing if i can access values in stock: ")
+        # attrs = vars(self.stock)
+        # print(', '.join("%s: %s" % item for item in attrs.items()))
         year_list = response.xpath('//*[@id="style-1"]/div[1]/table/tbody/tr/td[1]/text()').getall()
         eps_list = response.xpath('//*[@id="style-1"]/div[1]/table/tbody/tr/td[2]/text()').getall()
         # Make pandas series from two lists and convert to correct data type
@@ -40,7 +39,4 @@ class EPSSpider(scrapy.Spider):
         # print(year_eps_df)
 
         # Concatenate to main dataframe
-        # self.stock.add_first_df_to_main(year_eps_df)
-        # self.stock.main_df = self.stock.main_df.append(year_eps_df)
-        # self.stock.main_df = year_eps_df
         self.stock.concatenate_df(year_eps_df)

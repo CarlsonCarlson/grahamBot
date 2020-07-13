@@ -20,6 +20,10 @@ class DividendsSpider(scrapy.Spider):
              % ticker]
 
     def parse(self, response):
+        print("running dividends")
+        # print("testing if i can access values in stock: ")
+        # attrs = vars(self.stock)
+        # print(', '.join("%s: %s" % item for item in attrs.items()))
         year_list = response.xpath('/html/body/script/text()').re(r'\d\d\d\d-')
         # dividend_payout_list has '"ttm_d":' before every entry, if somehow a stock has double digit yields
         # this wont work
