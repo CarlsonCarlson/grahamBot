@@ -64,13 +64,6 @@ def run_all_spiders(stock):
     #
     # crawl()
     # reactor.run()
-    process = CrawlerProcess({})
-    crawler1 = process.create_crawler(crawler_or_spidercls=spider1)
-    crawler2 = process.create_crawler(crawler_or_spidercls=spider2)
-    process.crawl(crawler1, stock.name, stock.ticker, stock.dir, stock=stock)
-    process.crawl(crawler2, stock.name, stock.ticker, stock.dir, stock=stock)
-    process.start()
-    process.stop()
     # using crochet yayayayayayay
 
 
