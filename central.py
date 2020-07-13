@@ -71,6 +71,7 @@ def run_all_spiders(stock):
     process.crawl(crawler2, stock.name, stock.ticker, stock.dir, stock=stock)
     process.start()
     process.stop()
+    # using crochet yayayayayayay
 
 
 def run_all_algs(stock):
