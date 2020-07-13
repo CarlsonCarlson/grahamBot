@@ -70,7 +70,7 @@ def run_all_spiders(stock):
     process.crawl(crawler1, stock.name, stock.ticker, stock.dir, stock=stock)
     process.crawl(crawler2, stock.name, stock.ticker, stock.dir, stock=stock)
     process.start()
-    # process.stop()
+    process.stop()
 
 
 def run_all_algs(stock):
