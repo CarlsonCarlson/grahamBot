@@ -1,4 +1,3 @@
-from scrapy.crawler import CrawlerProcess
 import Stock
 import Analyzer
 import os
@@ -36,35 +35,10 @@ def define_filepath(ticker, name) -> str:
 
 
 def run_all_spiders(stock):
-    # stock.run_spider('dividends_spider')
-    # stock.run_spider('eps_spider')
-    import grahamBot.grahamBot.spiders.eps_spider as eps_spider
-    import grahamBot.grahamBot.spiders.dividends_spider as dividends_spider
     # TODO: find out how to make spiders run in the order you want
     # Dividends goes first because it has more rows (since 1989)
-    from scrapy.crawler import CrawlerRunner, CrawlerProcess
-    from twisted.internet import reactor, defer
-    from scrapy.utils.log import configure_logging
-    from crochet import setup
-
-    # setup()
-    # configure_logging()
-    # runner = CrawlerRunner()
-
-    spider1 = dividends_spider.DividendsSpider(name=stock.name, ticker=stock.ticker,
-                                               filepath=stock.dir, stock=stock)
-    spider2 = eps_spider.EPSSpider(name=stock.name, ticker=stock.ticker,
-                                   filepath=stock.dir, stock=stock)
-
-    # @defer.inlineCallbacks
-    # def crawl():
-    #     yield runner.crawl(spider1, stock.name, stock.ticker, stock.dir, stock=stock)
-    #     yield runner.crawl(spider2, stock.name, stock.ticker, stock.dir, stock=stock)
-    #     reactor.stop()
-    #
-    # crawl()
-    # reactor.run()
-    # using crochet yayayayayayay
+    stock.run_spider('dividends')
+    stock.run_spider('eps')
 
 
 def run_all_algs(stock):
@@ -74,32 +48,32 @@ def run_all_algs(stock):
 
 def research_single():
     # TODO: make it take EITHER name or ticker, one is required though
-    name = input("What is the name of the stock you want to research? ")
-    name = name.lower().strip()
-    ticker = input("What is the ticker symbol of this stock? ")
+    # name = input("What is the name of the stock you want to research? ")
+    # name = name.lower().strip()
+    # ticker = input("What is the ticker symbol of this stock? ")
     # ticker = input("Optional: What is the ticker symbol of this stock? ")
     # if ticker == '':
     #     ticker = None
     # else:
     #     ticker = ticker.upper()
-    # name = 'apple'
-    # ticker = 'AAPL'
-    complete_path = define_filepath(ticker, name)
-    stock = Stock.Stock(name, ticker, complete_path)
+    name = 'apple'
+    ticker = 'AAPL'
+    # complete_path = define_filepath(ticker, name)
     # stock = Stock.Stock(name)
     # print(stock.ticker)
     # attrs = vars(stock)
     # print(', '.join("%s: %s" % item for item in attrs.items()))
-    complete_path = define_filepath(stock.ticker, name)
+    complete_path = define_filepath(ticker, name)
+    stock = Stock.Stock(name, ticker, complete_path)
     print(complete_path)
     # stock.dir = complete_path
     # print(stock.dir)
     run_all_spiders(stock)
     print(stock.main_df.to_string(justify='center'))
-    stock.write_dataframe('main_report')
-    run_all_algs(stock)
-    print(stock.calculations_df.to_string(justify='center'))
-    stock.write_calc_report()
+    # stock.write_dataframe('main_report')
+    # run_all_algs(stock)
+    # print(stock.calculations_df.to_string(justify='center'))
+    # stock.write_calc_report()
 
 
 def run_f500():

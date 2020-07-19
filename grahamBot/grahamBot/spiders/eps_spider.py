@@ -2,12 +2,12 @@ import scrapy
 import pandas as pd
 
 
-class EPSSpider(scrapy.Spider):
+class Spider(scrapy.Spider):
     name = 'EPS'
 
     # Pass in name and ticker when calling EPS spider
     def __init__(self, name, ticker, filepath, stock, *args, **kwargs):
-        super(EPSSpider, self).__init__(*args, *kwargs)
+        super(Spider, self).__init__(*args, *kwargs)
         self.name = name
         self.ticker = ticker
         self.filepath = filepath

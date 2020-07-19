@@ -1,112 +1,37 @@
 import os
 import pandas as pd
-from multiprocessing import Process, Queue
-import grahamBot.grahamBot.spiders as spiders
-import scrapy.crawler as crawler
-from twisted.internet import reactor
-from scrapy.utils.log import configure_logging
+from crochet import setup, wait_for
 
 
-# def fork(q, options_dict: dict, spider_file_name: str, stock):
-#     # configure_logging()
-#     try:
-#         runner = crawler.CrawlerRunner()
-#         if hasattr(stock, 'dir'):
-#             deferred = runner.crawl(options_dict[spider_file_name], name=stock.name, ticker=stock.ticker,
-#                                     filepath=stock.dir, stock=stock)
-#             deferred.addBoth(lambda _: reactor.stop())
-#             reactor.run()
-#             q.put(None)
-#         else:
-#             deferred = runner.crawl(options_dict[spider_file_name], name=stock.name, ticker=stock.ticker, stock=stock)
-#             deferred.addBoth(lambda _: reactor.stop())
-#             reactor.run()
-#             # Trying to put ticker into queue without use of any scrapy type shit.
-#             # q.put(None)
-#             print("stock.ticker the line after reactor.run: {}".format(stock.ticker))
-#             q.put(stock.ticker)
-#     except Exception as e:
-#         q.put(e)
-#     attrs = vars(stock)
-#     print(', '.join("%s: %s" % item for item in attrs.items()))
+# TODO: figure out where to call setup()
 
 
 class Stock:
     def __init__(self, name, ticker='', directory=None):
         self.name = name
         self.ticker = ticker
-        # if self.ticker == '':
-        #     self.name_to_ticker()
         print("ticker in init after running ticker_spider: {}".format(self.ticker))
         self.dir = directory
         self.main_df = pd.DataFrame()
         self.calculations_df = pd.DataFrame()
         self.calculations_df['Criterion:'] = ['Value:', 'Passed:', 'Note(s):']
-        # if self.name is not None and self.ticker is not None:
-        #     self.complete = True
-        # else:
-        #     self.complete = False
+        setup()
 
-    # def run_spider(self, spider_file_name: str):
-    # print attributes
-    # attrs = vars(self)
-    # print(', '.join("%s: %s" % item for item in attrs.items()))
-    # Options
-    # ticker_spider = spiders.ticker_spider.TickerSpider(name=self.name, stock=self)
-    # print("has dir: {}".format(hasattr(self, 'dir')))
-    # if hasattr(self, 'dir'):
-    #     eps_spider = spiders.eps_spider.EPSSpider(name=self.name, ticker=self.ticker,
-    #                                               filepath=self.dir, stock=self)
-    #     dividends_spider = spiders.dividends_spider.DividendsSpider(name=self.name, ticker=self.ticker,
-    #                                                                 filepath=self.dir, stock=self)
-    #
-    #     options_dict = {
-    #         "ticker_spider": ticker_spider,
-    #         "eps_spider": eps_spider,
-    #         "dividends_spider": dividends_spider
-    #     }
-    # else:
-    #     options_dict = {'ticker_spider': ticker_spider}
-    #
-    # Assuming that spider_file_name will be one of the options
-
-    # queue = Queue()
-    # process = Process(target=fork, args=(queue, options_dict, spider_file_name, self))
-    # process.start()
-    # result = queue.get()
-    # process.join()
-    #
-    # if result is Exception:
-    #     raise result
-    # # I want to put my ticker, eps dataframe, div dataframe in the queue so i can get it here as result
-    # print("result: {}".format(result))
-    #
-    # def name_to_ticker(self):
-    #     # self.run_spider('ticker_spider')
-    #     # print("ticker in stock.py right after running ticker_spider: " + self.ticker)
-    #     from scrapy.crawler import CrawlerRunner #CrawlerProcess
-    #     import grahamBot.grahamBot.spiders.ticker_spider as spider
-    #     from twisted.internet import reactor, defer
-    #     from scrapy.utils.log import configure_logging
-    #     from crochet import setup
-    #     setup()
-    #     # the spider itself will set self.ticker to the correct ticker
-    #     # process = CrawlerProcess({})
-    #     configure_logging()
-    #     runner = CrawlerRunner()
-    #
-    #     ticker_spider = spider.TickerSpider(name=self.name, stock=self)
-    #     # ticker_crawler = process.create_crawler(crawler_or_spidercls=ticker_spider)
-    #
-    #     @defer.inlineCallbacks
-    #     def crawl():
-    #         yield runner.crawl(ticker_spider, self.name, stock=self)
-    #         reactor.stop()
-    #
-    #     crawl()
-    # reactor.run()
-    # process.start(stop_after_crawl=False)
-    # process.crawl(ticker_spider, self.name, stock=self)
+    @wait_for(10)
+    def run_spider(self, spider_key_word: str):
+        from importlib import import_module
+        lower_key = spider_key_word.lower()
+        # upper_key = spider_key_word.capitalize()
+        # module_name = ".{}_spider.{}Spider".format(lower_key, upper_key)
+        # module_name = ".{}_spider".format(lower_key)
+        module_name = "grahamBot.grahamBot.spiders.{}_spider".format(lower_key)
+        print("importing: " + module_name)
+        # imported_spider_class = import_module(module_name, package="grahamBot.grahamBot.spiders")
+        imported_spider_class = import_module(module_name)
+        spider = imported_spider_class.Spider(name=self.name, ticker=self.ticker, filepath=self.dir, stock=self)
+        from scrapy.crawler import CrawlerRunner
+        crawler = CrawlerRunner()
+        process = crawler.crawl(spider)
 
     def set_attr(self, attribute_name: str, attribute_value) -> None:
         setattr(self, attribute_name, attribute_value)

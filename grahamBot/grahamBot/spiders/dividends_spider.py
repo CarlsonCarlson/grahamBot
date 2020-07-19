@@ -5,12 +5,12 @@ import pandas as pd
 # you have to start a scrapy project
 
 # I need to make a spider
-class DividendsSpider(scrapy.Spider):
+class Spider(scrapy.Spider):
     name = 'dividends'
 
     # Pass in name and ticker when calling EPS spider
     def __init__(self, name, ticker, filepath, stock, *args, **kwargs):
-        super(DividendsSpider, self).__init__(*args, *kwargs)
+        super(Spider, self).__init__(*args, *kwargs)
         self.name = name
         self.ticker = ticker
         self.filepath = filepath

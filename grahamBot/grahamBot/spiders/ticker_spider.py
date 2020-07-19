@@ -2,12 +2,12 @@ import scrapy
 import pandas as pd
 
 
-class TickerSpider(scrapy.Spider):
+class Spider(scrapy.Spider):
     name = 'Ticker'
 
     # Pass in name when calling ticker spider
     def __init__(self, name: str, stock, *args, **kwargs):
-        super(TickerSpider, self).__init__(*args, *kwargs)
+        super(Spider, self).__init__(*args, *kwargs)
         self.name = name.replace(' ', '+')
         self.stock = stock
         self.user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) ' \
