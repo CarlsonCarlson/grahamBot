@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 from crochet import setup, wait_for
+from scrapy.utils.log import configure_logging
 
 
 # TODO: figure out where to call setup()
@@ -16,6 +17,8 @@ class Stock:
         self.calculations_df = pd.DataFrame()
         self.calculations_df['Criterion:'] = ['Value:', 'Passed:', 'Note(s):']
         setup()
+        configure_logging()
+
 
     @wait_for(10)
     def run_spider(self, spider_key_word: str):
@@ -31,7 +34,7 @@ class Stock:
         spider = imported_spider_class.Spider(name=self.name, ticker=self.ticker, filepath=self.dir, stock=self)
         from scrapy.crawler import CrawlerRunner
         crawler = CrawlerRunner()
-        process = crawler.crawl(spider)
+        process = crawler.crawl(spider, name=self.name, ticker=self.ticker, filepath=self.dir, stock=self)
 
     def set_attr(self, attribute_name: str, attribute_value) -> None:
         setattr(self, attribute_name, attribute_value)

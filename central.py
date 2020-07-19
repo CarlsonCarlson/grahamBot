@@ -35,7 +35,6 @@ def define_filepath(ticker, name) -> str:
 
 
 def run_all_spiders(stock):
-    # TODO: find out how to make spiders run in the order you want
     # Dividends goes first because it has more rows (since 1989)
     stock.run_spider('dividends')
     stock.run_spider('eps')
