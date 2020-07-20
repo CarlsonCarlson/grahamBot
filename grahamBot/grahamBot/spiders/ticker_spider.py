@@ -6,7 +6,7 @@ class Spider(scrapy.Spider):
     name = 'Ticker'
 
     # Pass in name when calling ticker spider
-    def __init__(self, name: str, stock, *args, **kwargs):
+    def __init__(self, name: str, ticker: str, filepath, stock, *args, **kwargs):
         super(Spider, self).__init__(*args, *kwargs)
         self.name = name.replace(' ', '+')
         self.stock = stock

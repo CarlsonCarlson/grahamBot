@@ -11,7 +11,6 @@ class Stock:
     def __init__(self, name, ticker='', directory=None):
         self.name = name
         self.ticker = ticker
-        print("ticker in init after running ticker_spider: {}".format(self.ticker))
         self.dir = directory
         self.main_df = pd.DataFrame()
         self.calculations_df = pd.DataFrame()

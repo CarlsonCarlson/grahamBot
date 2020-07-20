@@ -47,32 +47,40 @@ def run_all_algs(stock):
 
 def research_single():
     # TODO: make it take EITHER name or ticker, one is required though
-    # name = input("What is the name of the stock you want to research? ")
-    # name = name.lower().strip()
-    # ticker = input("What is the ticker symbol of this stock? ")
-    # ticker = input("Optional: What is the ticker symbol of this stock? ")
-    # if ticker == '':
-    #     ticker = None
-    # else:
-    #     ticker = ticker.upper()
-    name = 'apple'
-    ticker = 'AAPL'
-    # complete_path = define_filepath(ticker, name)
-    # stock = Stock.Stock(name)
-    # print(stock.ticker)
-    # attrs = vars(stock)
-    # print(', '.join("%s: %s" % item for item in attrs.items()))
-    complete_path = define_filepath(ticker, name)
-    stock = Stock.Stock(name, ticker, complete_path)
-    print(complete_path)
-    # stock.dir = complete_path
-    # print(stock.dir)
+    # name = 'apple'
+    # ticker = 'AAPL'
+    name = ''
+    ticker = ''
+    confirm = False
+    while confirm is not True:
+        name = input("What is the name of the stock you want to research? ")
+        name = name.lower().strip()
+        ticker = input("Optional: What is the ticker symbol of this stock? ")
+        confirm_input = input("Run? y/n \n")
+        if confirm_input == 'y':
+            if name != '':
+                confirm = True
+            else:
+                print("Please enter a name. \n")
+                confirm = False
+        else:
+            confirm = False
+    if ticker == '':
+        ticker = None
+        stock = Stock.Stock(name)
+        stock.run_spider('ticker')
+        complete_path = define_filepath(stock.ticker, name)
+        stock.dir = complete_path
+    else:
+        ticker = ticker.upper()
+        complete_path = define_filepath(ticker, name)
+        stock = Stock.Stock(name, ticker, complete_path)
     run_all_spiders(stock)
     print(stock.main_df.to_string(justify='center'))
-    # stock.write_dataframe('main_report')
-    # run_all_algs(stock)
-    # print(stock.calculations_df.to_string(justify='center'))
-    # stock.write_calc_report()
+    stock.write_dataframe('main_report')
+    run_all_algs(stock)
+    print(stock.calculations_df.to_string(justify='center'))
+    stock.write_calc_report()
 
 
 def run_f500():
