@@ -20,14 +20,14 @@ class Spider(scrapy.Spider):
              % ticker]
 
     def parse(self, response):
-        print("running dividends")
+        # print("running dividends")
         # print("testing if i can access values in stock: ")
         # attrs = vars(self.stock)
         # print(', '.join("%s: %s" % item for item in attrs.items()))
         year_list = response.xpath('/html/body/script/text()').re(r'\d\d\d\d-')
         # dividend_payout_list has '"ttm_d":' before every entry, if somehow a stock has double digit yields
         # this wont work
-        dividend_payout_list = response.xpath('/html/body/script/text()').re(r'"ttm_d":\S\S\S\S')
+        dividend_payout_list = response.xpath('/html/body/script/text()').re(r'"ttm_d":[0-9.]*[0-9.]')
 
         # Create series of correct type
         div_series = pd.Series(dividend_payout_list)
@@ -36,6 +36,7 @@ class Spider(scrapy.Spider):
         # Filter series for 'null' and clean data
         div_series.where(div_series != 'null', inplace=True) # Filter Series
         div_series = div_series.astype(float)
+        div_series = div_series.round(decimals=2)
         year_series = pd.Series(year_list)
         year_series = year_series.replace(to_replace='-', value='', regex=True)
         year_series = pd.to_datetime(year_series)

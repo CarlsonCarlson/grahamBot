@@ -4,6 +4,15 @@ Asks for company name and ticker <br>
 Writes report of all annual EPS and dividend payouts since 1989 <br>
 Writes report on if EPS increased by 33% in the last 10 years <br>
 
+##Required Packages:
+os<br>
+pandas<br>
+scrapy<br>
+datetime<br>
+importlib<br>
+crochet <br>
+time<br>
+
 ### Big thanks to https://github.com/cmusam/fortune500 for publishing csv's of the fortune500 lists from 1955-2019
 ### Also thanks to https://github.com/timarbuckle/yahoofinance for the easy ticker/name converter
 
@@ -13,15 +22,11 @@ ycharts seems to have data from earlier but I need an account. <br/>
 guru focus also has 30 year financials but you need an account <br/>
 for more in-depth analysis I will try one of these^ <br/>
 
-# TODO: 
-how the heck do i run the spiders in the way i want?
-make run_spider function in stock.py
-in stock.py function name_to_ticker and in central.py function run_all_spiders
-see what's going on currently with how they are running
-
 ## Data Analysis
+analyze postive earnings over past 10 years (on hold)
 
 ## Finish run through all fortune 500 companies function in central
+what happens when macrotrends does not have data on the company?
 ### Expected behavior: 
 get ticker from company name in csv
 run through each f500 company and write ones that happen to pass all criteria <br>
@@ -30,11 +35,11 @@ folder names start with company rank
 
 
 ## Stats to analyze in order of utility
-diluted EPS increase by 1.33 in the past 10 years using three year averages at the beginning and end
+diluted EPS increase by 1.33 in the past 10 years using three year averages at the beginning and end (complete)
 
 Positive earnings over the past 10 years
 
-Dividend record should be uninterrupted for 20 years
+Dividend record should be uninterrupted for 20 years 
 ### Strong financial condition check
 Long-term debt should be less than net current assets
 
@@ -49,5 +54,8 @@ Price to book ratio should be no more than 1.5
 A low PE ratio can justify a high P/B so, PE ratio x PB ratio should be less than or equal to 22.5
 
 ## Low priority
-create schema_df to explain each criterion
-make architecture diagram (UML) for README
+create schema_df to explain each criterion<br>
+make architecture diagram (UML) for README<br>
+write reports in html or csv to allow for line breaks and overall pretty formatting.<br>
+move everything from grahamBot project dir to top level grahamBot package<br>
+(make sure it still writes files to project)

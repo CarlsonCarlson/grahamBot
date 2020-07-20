@@ -4,9 +4,6 @@ from crochet import setup, wait_for
 from scrapy.utils.log import configure_logging
 
 
-# TODO: figure out where to call setup()
-
-
 class Stock:
     def __init__(self, name, ticker='', directory=None):
         self.name = name
@@ -26,7 +23,7 @@ class Stock:
         # module_name = ".{}_spider.{}Spider".format(lower_key, upper_key)
         # module_name = ".{}_spider".format(lower_key)
         module_name = "grahamBot.grahamBot.spiders.{}_spider".format(lower_key)
-        print("importing: " + module_name)
+        # print("importing: " + module_name)
         # imported_spider_class = import_module(module_name, package="grahamBot.grahamBot.spiders")
         imported_spider_class = import_module(module_name)
         spider = imported_spider_class.Spider(name=self.name, ticker=self.ticker, filepath=self.dir, stock=self)
@@ -68,6 +65,7 @@ class Stock:
         """
         list_to_append = [calc_result, criteria_passed, notes]
         self.calculations_df[calc_title] = list_to_append
+        self.calculations_df.set_index('Criterion:', inplace=True)
 
     def write_calc_report(self):
         filename = os.path.join(self.dir, '{}({})graham_report.txt'.format(self.ticker, self.name))

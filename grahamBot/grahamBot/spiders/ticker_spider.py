@@ -1,5 +1,7 @@
 import scrapy
-import pandas as pd
+
+
+# TODO: allow it to scrape the top 3-5 results so a user can select one of them if they type a name wrong.:w
 
 
 class Spider(scrapy.Spider):
@@ -14,12 +16,11 @@ class Spider(scrapy.Spider):
                           'Chrome/83.0.4103.116 ' \
                           'Safari/537.36 Edg/83.0.478.61 '
         self.start_urls = \
-            ["https://www.marketwatch.com/tools/quotes/lookup.asp?siteID=mktw&Lookup={}&Country=all&Type=All" \
+            ["https://www.marketwatch.com/tools/quotes/lookup.asp?siteID=mktw&Lookup={}&Country=all&Type=Stock" \
                  .format(name)]
 
     def parse(self, response):
         ticker = response.xpath('//*[@id="symbollookup"]/div/table/tbody/tr/td[1]/a/text()').get()
-        print("ticker in ticker_spider: " + ticker)
-        # TODO: make it set ticker in stock through the multiprocessing
+        # print("ticker in ticker_spider: " + ticker)
         self.stock.set_attr('ticker', ticker)
         # return ticker

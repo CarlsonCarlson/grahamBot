@@ -2,7 +2,6 @@ import pandas as pd
 import datetime
 
 
-# TODO: work on Analyzer
 class Analyzer:
     def __init__(self, stock):
         self.stock = stock
@@ -11,6 +10,8 @@ class Analyzer:
         # Test: diluted EPS increase by 1.33 in the past 10 years using three year
         #  averages at the beginning and end
         # 3 year trailing average from 10 years ago
+        # TODO: fix evaluation of negative earnings per share
+        # TODO: only run when there is an eps column
 
         current_year = datetime.datetime.now().year
         df = self.stock.main_df
@@ -23,8 +24,6 @@ class Analyzer:
         present_num_years_used = present_3_years_df['EPS'].size
         trailing_average_present = present_3_years_df['EPS'].mean()
 
-        # TODO: feature idea: you could make it use the most recent 3 year average from atleast 10 years ago
-        #  then just report the years used in the exception.
         # Calculate 10 years ago 3 year trailing average
         past_3_year_filt = (df['Year'].dt.year <= (most_current_year - 10)) & \
                            (df['Year'].dt.year > (most_current_year - 13))
@@ -33,7 +32,10 @@ class Analyzer:
         trailing_average_past = past_3_year_df['EPS'].mean()
         if not pd.isna(trailing_average_past):  # Round it
             trailing_average_past = trailing_average_past.round(decimals=2)
-        percent_inc = round(trailing_average_present / trailing_average_past, 2)
+        if trailing_average_past != 0:
+            percent_inc = round(trailing_average_present / trailing_average_past, 2)
+        elif trailing_average_past == 0:
+            percent_inc = round(trailing_average_present / 0.01, 2)
 
         # process calculations
         criteria_passed = 'No'  # Default
@@ -64,6 +66,9 @@ class Analyzer:
 
         if made_note:
             note = note + ' instead of default 3 year trailing averages.'
+        if trailing_average_past == 0:
+            note = note + ' The trailing average from {}-{} was equal to 0.'.format(
+                past_3_year_df['Year'].min().year, past_3_year_df['Year'].max().year)
 
         # Report results
         if pd.isna(percent_inc):

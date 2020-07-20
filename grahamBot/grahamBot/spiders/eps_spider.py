@@ -17,7 +17,7 @@ class Spider(scrapy.Spider):
              % (ticker, name)]
 
     def parse(self, response):
-        print("running eps")
+        # print("running eps")
         # print("testing if i can access values in stock: ")
         # attrs = vars(self.stock)
         # print(', '.join("%s: %s" % item for item in attrs.items()))
@@ -27,7 +27,8 @@ class Spider(scrapy.Spider):
         year_series = pd.Series(year_list)
         year_series = pd.to_datetime(year_series)
         eps_series = pd.Series(eps_list)
-        eps_series = eps_series.replace(to_replace=r'\$', value='', regex=True).astype(float)
+        eps_series = eps_series.replace(to_replace=r'\$', value='', regex=True)
+        eps_series = eps_series.replace(to_replace=r',', value='', regex=True).astype(float)
         # Now combine them into a dataframe
         year_eps_df = pd.DataFrame(columns=['Year', 'EPS'])
         year_eps_df['Year'] = year_series
