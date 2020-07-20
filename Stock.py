@@ -19,7 +19,6 @@ class Stock:
         setup()
         configure_logging()
 
-
     @wait_for(10)
     def run_spider(self, spider_key_word: str):
         from importlib import import_module
@@ -35,6 +34,7 @@ class Stock:
         from scrapy.crawler import CrawlerRunner
         crawler = CrawlerRunner()
         process = crawler.crawl(spider, name=self.name, ticker=self.ticker, filepath=self.dir, stock=self)
+        return process
 
     def set_attr(self, attribute_name: str, attribute_value) -> None:
         setattr(self, attribute_name, attribute_value)
