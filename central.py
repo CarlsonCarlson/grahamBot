@@ -57,7 +57,8 @@ def research_single():
     ticker = ''
     confirm = False
     while confirm is not True:
-        name = input("What is the name of the stock you want to research? ")
+        # name = input("What is the name of the stock you want to research? ")
+        name = 'iHeartMedia'
         name = name.lower().strip()
         ticker = input("Optional: What is the ticker symbol of this stock? ")
         if ticker == '':
@@ -104,20 +105,21 @@ def run_f500():
     start = perf_counter()
     f500_df = pd.read_csv(path, index_col='rank', usecols=['rank', 'company'])
     count = 0
-    for i in range(300, len(f500_df) + 1):
+    for i in range(1, len(f500_df) + 1):
         # for i in range(1, 6):
         company = f500_df.loc[i, 'company']
         stock = Stock.Stock(f500_df.loc[i, 'company'])
         stock.run_spider('ticker')
+        # Check if there is a ticker
         if stock.ticker is None:
-            print("no ticker was found for " + company + " proceeding to next company")
+            print("no ticker was found for " + company + "; proceeding to next company")
         else:
-            # print(company + ": " + stock.ticker)
             run_all_spiders(stock)
             if stock.main_df.empty:
                 print("I could not find any data on {}, they could be a private company".format(stock.name))
             else:
                 run_all_algs(stock)
+                # Check if it passes the test
                 if stock.calculations_df.loc['Passed:'].all() == 'Yes':
                     count += 1
                     print(count)

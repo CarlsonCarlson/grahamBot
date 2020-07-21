@@ -11,8 +11,12 @@ class Analyzer:
         #  averages at the beginning and end
         # 3 year trailing average from 10 years ago
         # TODO: fix evaluation of negative earnings per share
-        # TODO: only run when there is an eps column
 
+        # Check if there is an eps column in main_df
+        if 'EPS' not in self.stock.main_df.columns:
+            self.stock.append_calc_result('EPS increased by 33%?',
+                                          'N/A', 'N/A', 'Could not find EPS on macrotrends')
+            return
         current_year = datetime.datetime.now().year
         df = self.stock.main_df
 
@@ -20,6 +24,13 @@ class Analyzer:
         present_3_years_filt = df['Year'].dt.year > (current_year - 3)
         present_3_years_df = df.loc[present_3_years_filt, ['Year', 'EPS']]
         present_3_years_df.dropna(inplace=True)
+
+        # check if empty
+        if present_3_years_df.empty:
+            self.stock.append_calc_result('EPS increased by 33%?',
+                                          'No data', 'No', 'No EPS entries within the last 3 years')
+            return
+        # proceed
         most_current_year = present_3_years_df.iloc[0]['Year'].year  # We need 10 years before this year
         present_num_years_used = present_3_years_df['EPS'].size
         trailing_average_present = present_3_years_df['EPS'].mean()

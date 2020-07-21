@@ -13,7 +13,7 @@ class Stock:
         self.calculations_df = pd.DataFrame()
         self.calculations_df['Criterion:'] = ['Value:', 'Passed:', 'Note(s):']
         setup()
-        configure_logging()
+        # configure_logging()
 
     @wait_for(10)
     def run_spider(self, spider_key_word: str):

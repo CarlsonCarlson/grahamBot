@@ -3,6 +3,7 @@
 Asks for company name and ticker <br>
 Writes report of all annual EPS and dividend payouts since 1989 <br>
 Writes report on if EPS increased by 33% in the last 10 years <br>
+takes 28 minutes to run a single test on all 500<br>
 
 ##Required Packages:
 os<br>
@@ -26,12 +27,15 @@ for more in-depth analysis I will try one of these^ <br/>
 analyze postive earnings over past 10 years (on hold)
 
 ## Finish run through all fortune 500 companies function in central
-what happens when macrotrends does not have data on the company?
+what happens when marketwatch doesnt have a the correct ticker (need to look for alternative sites)<br>
+what happens when macrotrends doesnt have the data (need to look for alternative sites)<br>
+
 ### Expected behavior: 
 get ticker from company name in csv
-run through each f500 company and write ones that happen to pass all criteria <br>
+run through each f500 company and write ones that happen to pass all criteria (their passed row is 'Yes')<br>
 companies that pass all criteria get a folder with a graham report and main report <br>
-folder names start with company rank
+folder names start with company rank <br>
+have a file that stores all the companies that had data that couldnt be found for further inspection<br>
 
 
 ## Stats to analyze in order of utility
