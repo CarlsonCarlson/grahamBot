@@ -43,7 +43,7 @@ diluted EPS increase by 1.33 in the past 10 years using three year averages at t
 
 Positive earnings over the past 10 years
 
-Dividend record should be uninterrupted for 20 years 
+Dividend record should be uninterrupted for 20 years (possible to except depression periods such as 2008)
 ### Strong financial condition check
 Long-term debt should be less than net current assets
 
@@ -51,7 +51,9 @@ Long-term debt should be less than net current assets
 
 (for public utilities) debt should not exceed 2x the equity (what does this mean)
 ### Price filters
-Price should not be more than 15 times the average earnings of the past 3 years 
+Price should not be more than 20 times the average earnings of the past 5 years (source: intelligent investor)<br>
+graham suggests not more than 25 times the average earnings if those earnings are from a depression/recession period <br>
+price should not be more than 15 times the average earnings of the past 3 years (source: intelligent investor summary)<br>
 
 Price to book ratio should be no more than 1.5
 

@@ -105,18 +105,38 @@ def run_f500():
     start = perf_counter()
     f500_df = pd.read_csv(path, index_col='rank', usecols=['rank', 'company'])
     count = 0
+    import csv
+    filepath = 'written_files/errors.csv'
+    with open(filepath, 'w', newline='') as error_file:
+        csv_writer = csv.writer(error_file)
+        csv_writer.writerow(['rank', 'company', 'error type', 'debugging notes'])
     for i in range(1, len(f500_df) + 1):
-        # for i in range(1, 6):
+    # for i in range(45, 50 + 1):
+    # for i in range(1, 6):
+        print('Rank: {}'.format(i))
         company = f500_df.loc[i, 'company']
         stock = Stock.Stock(f500_df.loc[i, 'company'])
         stock.run_spider('ticker')
         # Check if there is a ticker
         if stock.ticker is None:
-            print("no ticker was found for " + company + "; proceeding to next company")
+            print("no ticker was found for " + company + " on marketwatch/lookup; proceeding to next company")
+            # current_dir = os.getcwd()
+            # filepath = os.path.join(current_dir, r'written_files\errors.csv')
+            filepath = 'written_files/errors.csv'
+            with open(filepath, 'a+', newline='') as error_file:
+                csv_writer = csv.writer(error_file)
+                csv_writer.writerow([i, company, 'no ticker found on marketwatch'])
+
         else:
             run_all_spiders(stock)
             if stock.main_df.empty:
-                print("I could not find any data on {}, they could be a private company".format(stock.name))
+                print("I could not find any data on {} on macrocharts, they could be a private company".
+                      format(stock.name))
+                current_dir = os.getcwd()
+                filepath = os.path.join(current_dir, r'written_files\errors.csv')
+                with open(filepath, 'a+', newline='') as error_file:
+                    csv_writer = csv.writer(error_file)
+                    csv_writer.writerow([i, company, 'stock.main_df is empty'])
             else:
                 run_all_algs(stock)
                 # Check if it passes the test
@@ -126,13 +146,13 @@ def run_f500():
                     print(company + ": " + stock.ticker)
                     print(stock.main_df.to_string(justify='Center'))
                     print(stock.calculations_df.to_string(justify='center'))
-                else:
-                    print(company + ": " + stock.ticker)
-                    print(stock.main_df.to_string(justify='Center'))
-                    print(stock.calculations_df.to_string(justify='center'))
-        print("\n")
+                # else:
+                #     print(company + ": " + stock.ticker)
+                #     print(stock.main_df.to_string(justify='Center'))
+                #     print(stock.calculations_df.to_string(justify='center'))
     stop = perf_counter()
-    print("Time elapsed: " + str(stop - start))
+    print("Time elapsed: " + str((stop - start)) + " seconds.")
+    print("Time elapsed: " + str((stop - start)/60) + " minutes.")
     print(f500_df)
 
 
