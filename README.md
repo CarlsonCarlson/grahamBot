@@ -27,8 +27,8 @@ for more in-depth analysis I will try one of these^ <br/>
 analyze postive earnings over past 10 years (on hold)
 
 ## Finish run through all fortune 500 companies function in central
-what happens when marketwatch doesnt have a the correct ticker (need to look for alternative sites)<br>
-what happens when macrotrends doesnt have the data (need to look for alternative sites)<br>
+solve ticker lookup problems<br>
+find out how many companies could not be found on macrotrends<br>
 
 ### Expected behavior: 
 get ticker from company name in csv

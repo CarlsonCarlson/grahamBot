@@ -21,7 +21,7 @@
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
-/written_files
+/written_files/individual
 
 # Gradle
 .idea/**/gradle.xml

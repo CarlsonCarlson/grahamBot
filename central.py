@@ -57,8 +57,7 @@ def research_single():
     ticker = ''
     confirm = False
     while confirm is not True:
-        # name = input("What is the name of the stock you want to research? ")
-        name = 'iHeartMedia'
+        name = input("What is the name of the stock you want to research? ")
         name = name.lower().strip()
         ticker = input("Optional: What is the ticker symbol of this stock? ")
         if ticker == '':
