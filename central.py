@@ -47,6 +47,7 @@ def run_all_spiders(stock):
 def run_all_algs(stock):
     graham = Analyzer.Analyzer(stock)
     graham.earn_inc_by_33_percent_test()
+    graham.positive_earnings_test()
 
 
 def research_single():
@@ -112,7 +113,7 @@ def run_f500():
     for i in range(1, len(f500_df) + 1):
     # for i in range(45, 50 + 1):
     # for i in range(1, 6):
-        print('Rank: {}'.format(i))
+    #     print('Checking {}...'.format(i))
         company = f500_df.loc[i, 'company']
         stock = Stock.Stock(f500_df.loc[i, 'company'])
         stock.run_spider('ticker')
@@ -127,6 +128,7 @@ def run_f500():
                 csv_writer.writerow([i, company, 'no ticker found on marketwatch'])
 
         else:
+            print('Checking {}({}); Rank: {}...'.format(stock.ticker, company, i))
             run_all_spiders(stock)
             if stock.main_df.empty:
                 print("I could not find any data on {} on macrocharts, they could be a private company".
@@ -139,7 +141,8 @@ def run_f500():
             else:
                 run_all_algs(stock)
                 # Check if it passes the test
-                if stock.calculations_df.loc['Passed:'].all() == 'Yes':
+                passed_filt = stock.calculations_df.loc['Passed:'] == 'Yes'
+                if passed_filt.all():
                     count += 1
                     print(count)
                     print(company + ": " + stock.ticker)

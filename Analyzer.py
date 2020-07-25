@@ -89,3 +89,32 @@ class Analyzer:
         else:
             self.stock.append_calc_result('EPS increased by 33%?',
                                           percent_inc, criteria_passed, note)
+
+    def positive_earnings_test(self):
+        # Check if there is an eps column in main_df
+        if 'EPS' not in self.stock.main_df.columns:
+            self.stock.append_calc_result('Positive earnings record?',
+                                          'N/A', 'N/A', 'Could not find EPS on Macrotrends')
+            return
+
+        current_year = datetime.datetime.now().year
+        df = self.stock.main_df
+        past_10_years_filt = df['Year'].dt.year > (current_year - 10)
+        past_10_years_df = df.loc[past_10_years_filt, ['Year', 'EPS']]
+        past_10_years_df.dropna(inplace=True)
+
+        # check if empty
+        if past_10_years_df.empty:
+            self.stock.append_calc_result('Positive earnings record?',
+                                          'No data', 'No', 'No EPS entries within the last 10 years')
+            return
+        # Proceed
+        past_10_years_positive_df = past_10_years_df['EPS'] > 0
+
+        criteria_passed = 'No'
+        if past_10_years_positive_df.all():
+            criteria_passed = 'Yes'
+
+        # Report results
+        self.stock.append_calc_result('Positive earnings record?',
+                                      'N/A', criteria_passed, '')

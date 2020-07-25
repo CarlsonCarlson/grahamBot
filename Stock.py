@@ -12,6 +12,8 @@ class Stock:
         self.main_df = pd.DataFrame()
         self.calculations_df = pd.DataFrame()
         self.calculations_df['Criterion:'] = ['Value:', 'Passed:', 'Note(s):']
+        self.calculations_df.set_index('Criterion:', inplace=True)
+
         setup()
         # configure_logging()
 
@@ -65,7 +67,7 @@ class Stock:
         """
         list_to_append = [calc_result, criteria_passed, notes]
         self.calculations_df[calc_title] = list_to_append
-        self.calculations_df.set_index('Criterion:', inplace=True)
+        # self.calculations_df.set_index('Criterion:', inplace=True)
 
     def write_calc_report(self):
         filename = os.path.join(self.dir, '{}({})graham_report.txt'.format(self.ticker, self.name))
