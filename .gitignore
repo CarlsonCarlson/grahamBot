@@ -21,7 +21,7 @@
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
-/written_files/individual
+/written_files
 
 # Gradle
 .idea/**/gradle.xml
@@ -75,3 +75,4 @@ fabric.properties
 
 # Unused
 DEPRECATEDsimple_financeAPI_use.py
+!/written_files/errors.csv

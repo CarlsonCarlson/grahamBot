@@ -31,7 +31,7 @@ price to book ratio spider<br>
 ## Finish run through all fortune 500 companies function in central
 solve ticker lookup problems<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Looking up Jabil and eBay gives you AAPL as the ticker for some reason, make it confirm that the text found corresponds with the company<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Other known ticker errors are: Calpine, oshkosh, UGI, M&T, Cintas, S&P Global, intuit, zoetis, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Other known ticker errors are: Calpine, oshkosh, UGI, M&T, Cintas, S&P Global, intuit, zoetis, AT&T <br>
 find out how many companies could not be found on macrotrends<br>
 
 ### Expected behavior: 
