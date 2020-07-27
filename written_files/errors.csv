@@ -1,1 +1,34 @@
 rank,company,error type,debugging notes
+36,State Farm Insurance,no ticker found on marketwatch
+46,United Technologies,no ticker found on marketwatch
+71,New York Life Insurance,no ticker found on marketwatch
+73,Nationwide,stock.main_df is empty
+75,Liberty Mutual Insurance Group,no ticker found on marketwatch
+84,Massachusetts Mutual Life Insurance,no ticker found on marketwatch
+91,Publix Super Markets,no ticker found on marketwatch
+104,Twenty-First Century Fox,no ticker found on marketwatch
+111,Northwestern Mutual,no ticker found on marketwatch
+201,Supervalu,no ticker found on marketwatch
+212,Land O'Lakes,no ticker found on marketwatch
+237,Anadarko Petroleum,no ticker found on marketwatch
+244,Guardian Life Ins. Co. of America,no ticker found on marketwatch
+270,Farmers Insurance Exchange,no ticker found on marketwatch
+278,Laboratory Corp. of America,no ticker found on marketwatch
+285,Office Depot,no ticker found on marketwatch
+298,Pacific Life,no ticker found on marketwatch
+304,SunTrust Banks,no ticker found on marketwatch
+306,American Family Insurance Group,no ticker found on marketwatch
+332,First Data,no ticker found on marketwatch
+336,Mutual of Omaha Insurance,no ticker found on marketwatch
+340,Peter Kiewit Sons',no ticker found on marketwatch
+350,Rockwell Collins,no ticker found on marketwatch
+351,Thrivent Financial for Lutherans,no ticker found on marketwatch
+356,Jones Financial (Edward Jones),no ticker found on marketwatch
+364,Anixter International,no ticker found on marketwatch
+381,Erie Insurance Group,no ticker found on marketwatch
+382,Auto-Owners Insurance,no ticker found on marketwatch
+419,Newmont Goldcorp,no ticker found on marketwatch
+423,Graybar Electric,no ticker found on marketwatch
+432,Packaging Corp. of America,no ticker found on marketwatch
+443,AK Steel Holding,no ticker found on marketwatch
+476,Polaris Industries,no ticker found on marketwatch

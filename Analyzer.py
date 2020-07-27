@@ -5,6 +5,7 @@ import datetime
 class Analyzer:
     def __init__(self, stock):
         self.stock = stock
+        self.current_year = datetime.datetime.now().year
 
     def earn_inc_by_33_percent_test(self):
         # Test: diluted EPS increase by 1.33 in the past 10 years using three year
@@ -15,13 +16,12 @@ class Analyzer:
         # Check if there is an eps column in main_df
         if 'EPS' not in self.stock.main_df.columns:
             self.stock.append_calc_result('EPS increased by 33%?',
-                                          'N/A', 'N/A', 'Could not find EPS on macrotrends')
+                                          'N/A', 'N/A', 'Could not find EPS on Macrotrends')
             return
-        current_year = datetime.datetime.now().year
         df = self.stock.main_df
 
         # Calculate present three year trailing average
-        present_3_years_filt = df['Year'].dt.year > (current_year - 3)
+        present_3_years_filt = df['Year'].dt.year > (self.current_year - 3)
         present_3_years_df = df.loc[present_3_years_filt, ['Year', 'EPS']]
         present_3_years_df.dropna(inplace=True)
 
@@ -85,7 +85,7 @@ class Analyzer:
         if pd.isna(percent_inc):
             self.stock.append_calc_result('EPS increased by 33%?',
                                           'No data', 'No', 'Could not find the 3 year average from {} and before.'
-                                          .format(current_year - 10))
+                                          .format(self.current_year - 10))
         else:
             self.stock.append_calc_result('EPS increased by 33%?',
                                           percent_inc, criteria_passed, note)
@@ -97,9 +97,8 @@ class Analyzer:
                                           'N/A', 'N/A', 'Could not find EPS on Macrotrends')
             return
 
-        current_year = datetime.datetime.now().year
         df = self.stock.main_df
-        past_10_years_filt = df['Year'].dt.year > (current_year - 10)
+        past_10_years_filt = df['Year'].dt.year > (self.current_year - 10)
         past_10_years_df = df.loc[past_10_years_filt, ['Year', 'EPS']]
         past_10_years_df.dropna(inplace=True)
 
@@ -118,3 +117,30 @@ class Analyzer:
         # Report results
         self.stock.append_calc_result('Positive earnings record?',
                                       'N/A', criteria_passed, '')
+
+    def twenty_year_div_record_test(self):
+        if 'Div.Payout' not in self.stock.main_df.columns:
+            self.stock.append_calc_result('Uninterrupted Div. Record?',
+                                          'N/A', 'N/A', 'No Div. Payouts found on Macrotrends')
+            return
+
+        df = self.stock.main_df
+
+        # Make 20 year div payout dataframe
+        past_20_year_filt = (df['Year'].dt.year >= (self.current_year - 19))
+        past_20_year_df = df.loc[past_20_year_filt, ['Year', 'Div.Payout']]
+        # Filter out $0 values
+        no_0_dollars_filt = (past_20_year_df['Div.Payout'] != 0)
+        past_20_year_df = past_20_year_df.loc[no_0_dollars_filt, ['Year', 'Div.Payout']]
+        # Filter out Nan values
+        no_na_filt = (past_20_year_df['Div.Payout'].notna())
+        past_20_year_df = past_20_year_df.loc[no_na_filt, ['Year', 'Div.Payout']]
+
+        # Check if 20 values still remain
+        count = len(past_20_year_df.index)
+        if count < 20:
+            self.stock.append_calc_result('Uninterrupted Div. Record?',
+                                          count, 'No', '')
+        elif count == 20:
+            self.stock.append_calc_result('Uninterrupted Div. Record?',
+                                          count, 'Yes', '')

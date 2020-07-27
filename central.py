@@ -48,6 +48,7 @@ def run_all_algs(stock):
     graham = Analyzer.Analyzer(stock)
     graham.earn_inc_by_33_percent_test()
     graham.positive_earnings_test()
+    graham.twenty_year_div_record_test()
 
 
 def research_single():
@@ -86,6 +87,7 @@ def research_single():
         ticker = ticker.upper()
         complete_path = define_filepath(ticker, name)
         stock = Stock.Stock(name, ticker, complete_path)
+    print('Researching {}({})...'.format(stock.ticker, stock.name.capitalize()))
     run_all_spiders(stock)
     if stock.main_df.empty:
         print("I could not find any data on {}, they could be a private company".format(stock.name))
@@ -144,7 +146,6 @@ def run_f500():
                 passed_filt = stock.calculations_df.loc['Passed:'] == 'Yes'
                 if passed_filt.all():
                     count += 1
-                    print(count)
                     print(company + ": " + stock.ticker)
                     print(stock.main_df.to_string(justify='Center'))
                     print(stock.calculations_df.to_string(justify='center'))
@@ -153,9 +154,10 @@ def run_f500():
                 #     print(stock.main_df.to_string(justify='Center'))
                 #     print(stock.calculations_df.to_string(justify='center'))
     stop = perf_counter()
+    print(f500_df)
     print("Time elapsed: " + str((stop - start)) + " seconds.")
     print("Time elapsed: " + str((stop - start)/60) + " minutes.")
-    print(f500_df)
+    print("{} stocks qualified for all tests".format(count))
 
 
 if __name__ == '__main__':
