@@ -1,0 +1,9 @@
+name: grahamBot
+channels:
+  - defaults
+dependencies:
+  - python
+  - scrapy
+  - pandas
+  - pip
+    - crochet
