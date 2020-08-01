@@ -21,17 +21,16 @@ class Stock:
     def run_spider(self, spider_key_word: str):
         from importlib import import_module
         lower_key = spider_key_word.lower()
-        # upper_key = spider_key_word.capitalize()
-        # module_name = ".{}_spider.{}Spider".format(lower_key, upper_key)
-        # module_name = ".{}_spider".format(lower_key)
         module_name = "grahamBot.grahamBot.spiders.{}_spider".format(lower_key)
-        # print("importing: " + module_name)
-        # imported_spider_class = import_module(module_name, package="grahamBot.grahamBot.spiders")
         imported_spider_class = import_module(module_name)
-        spider = imported_spider_class.Spider(name=self.name, ticker=self.ticker, filepath=self.dir, stock=self)
+        arg_dict = {'name': self.name,
+                    'ticker': self.ticker,
+                    'filepath': self.dir,
+                    'stock': self}
+        spider = imported_spider_class.Spider(**arg_dict)
         from scrapy.crawler import CrawlerRunner
         crawler = CrawlerRunner()
-        process = crawler.crawl(spider, name=self.name, ticker=self.ticker, filepath=self.dir, stock=self)
+        process = crawler.crawl(spider, **arg_dict)
         return process
 
     def set_attr(self, attribute_name: str, attribute_value) -> None:

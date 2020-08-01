@@ -75,4 +75,4 @@ fabric.properties
 
 # Unused
 DEPRECATEDsimple_financeAPI_use.py
-!/written_files/errors.csv
+/written_files/errors.csv

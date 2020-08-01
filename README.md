@@ -7,6 +7,7 @@ if the earnings have been positive for the last 10 years<br>
 takes 26 minutes to run 3 spiders on all 500<br>
 
 ##Required Packages:
+
 os<br>
 pandas<br>
 scrapy<br>
@@ -16,7 +17,6 @@ crochet <br>
 time<br>
 
 ### Big thanks to https://github.com/cmusam/fortune500 for publishing csv's of the fortune500 lists from 1955-2019
-### Also thanks to https://github.com/timarbuckle/yahoofinance for the easy ticker/name converter
 
 ## For my reference
 I will be using macrotrends for historical data since 2005, and marketwatch for ticker lookup <br>
@@ -41,13 +41,25 @@ companies that pass all criteria get a folder with a graham report and main repo
 folder names start with company rank <br>
 have a file that stores all the companies that had data that couldnt be found for further inspection (complete)<br>
 
+# My take on what the intelligent investor says to use to qualify a stock
+## Earnings and dividends
+
+## Strong financial condition
+### original quote Intelligent Investor original 1949 ed. (pg. 74)
+'An industrial company’s finances are not conservative unless the common
+stock (at book value) represents at least half of the total capitalization,
+including all bank debt.' <br>
+for public utilities and railroads graham suggests book value should be atleast 30 percent <br>
+### my take v2 = total liabilities (debt) / total assets < 0.5 (for utilities and railroads 0.7)
+### My take v3 = total assets - total liabilities / total assets > 0.5
+defines total capitalization as total assets
+### v3 is the correct interpretation, but more convoluted
 
 ## Stats to analyze in order of utility
-diluted EPS increase by 1.33 in the past 10 years using three year averages at the beginning and end (complete)
-
-Positive earnings over the past 10 years
-
-Dividend record should be uninterrupted for 20 years (possible to except depression periods such as 2008)
+diluted EPS increase by 1.33 in the past 10 years using three year averages at the beginning and end (complete)<br>
+Positive earnings over the past 10 years (complete)<br>
+Dividend record should be uninterrupted for 20 years(complete) <br>
+(possible to except depression periods such as 2008 from div record analysis) <br>
 ### Strong financial condition check
 quarterly balance sheet spider is all that is required <br>
 Long-term debt should be less than net current assets
