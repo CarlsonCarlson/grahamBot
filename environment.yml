@@ -1,4 +1,4 @@
-name: FinanceAPI
+name: grahamBot
 channels:
   - defaults
 dependencies:
