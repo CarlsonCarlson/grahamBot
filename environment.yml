@@ -15,7 +15,6 @@ dependencies:
   - cryptography=2.9.2
   - cssselect=1.1.0
   - hyperlink=19.0.0
-  - icc_rt=2019.0.0
   - idna=2.10
   - incremental=17.5.0
   - intel-openmp=2020.1
@@ -47,7 +46,6 @@ dependencies:
   - python=3.8.3
   - python-dateutil=2.8.1
   - pytz=2020.1
-  - pywin32=227
   - queuelib=1.5.0
   - scrapy=1.6.0
   - service_identity=18.1.0
@@ -55,12 +53,9 @@ dependencies:
   - six=1.15.0
   - sqlite=3.32.3
   - twisted=20.3.0
-  - vc=14.1
-  - vs2015_runtime=14.16.27012
   - w3lib=1.21.0
   - wcwidth=0.2.5
   - wheel=0.34.2
-  - wincertstore=0.2
   - zlib=1.2.11
   - zope=1.0
   - zope.interface=4.7.1
