@@ -42,41 +42,26 @@ folder names start with company rank <br>
 have a file that stores all the companies that had data that couldnt be found for further inspection (complete)<br>
 
 # My take on what the intelligent investor says to use to qualify a stock
+TODO: What spiders do I need for Financial Condition and Price Check tests
 ## Earnings and dividends
-
-## Strong financial condition
-### original quote Intelligent Investor original 1949 ed. (pg. 74)
-'An industrial company’s finances are not conservative unless the common
-stock (at book value) represents at least half of the total capitalization,
-including all bank debt.' <br>
-for public utilities and railroads graham suggests book value should be atleast 30 percent <br>
-### my take v2 = total liabilities (debt) / total assets < 0.5 (for utilities and railroads 0.7)
-### My take v3 = total assets - total liabilities / total assets > 0.5
-defines total capitalization as total assets
-### v3 is the correct interpretation, but more convoluted
-
-## Stats to analyze in order of utility
 diluted EPS increase by 1.33 in the past 10 years using three year averages at the beginning and end (complete)<br>
 Positive earnings over the past 10 years (complete)<br>
 Dividend record should be uninterrupted for 20 years(complete) <br>
-(possible to except depression periods such as 2008 from div record analysis) <br>
-### Strong financial condition check
+
+## Strong financial condition
 quarterly balance sheet spider is all that is required <br>
-Long-term debt should be less than net current assets
-
-(for industrial firms) Current ratio should be greater than 2. Current assets should be at least twice current liabilities
-
-(for public utilities) debt should not exceed 2x the equity (what does this mean) shareholder equity?
+total assets - total liabilities / total assets > 0.5 (Intelligent Investor 1949)<br>
+Long-term debt should be less than net working capital (current assets - current liabilities) (Intelligent Investor 1972)<br>
+(for industrial firms) Current ratio should be greater than 2. Current assets should be at least twice current liabilities<br>
+(for public utilities) long term debt should not exceed 2x the share holder equity (total assets-total liabilities) (Intelligent Investor 1972<br>
 ## Price filters
 price to book ratio spider <br>
-###todo: re-evaluate what the actual P/E ratio test should be. (different sources are saying different things)<br>
-Price should not be more than 20 times the average earnings of the past 5 years (source: intelligent investor)<br>
-graham suggests not more than 25 times the average earnings if those earnings are from a depression/recession period <br>
-price should not be more than 15 times the average earnings of the past 3 years (source: intelligent investor summary)<br>
-
-Price to book ratio should be no more than 1.5
-
-A low PE ratio (below 15) can justify a high P/B so, PE ratio x PB ratio should be less than or equal to 22.5
+7 year P/E < 25 (I. I. 1972 Chapter 5)<br>
+Trailing Twelve Month Average P/E < 20 (I. I. 1972 Chapter 5)<br>
+### Below is from Chapter 14: 
+price should not be more than 15 times the average earnings of the past 3 years (source: intelligent investor 1972)<br>
+Price to book ratio should be no more than 1.5 (source: intelligent investor 1972)<br>
+A low PE ratio (below 15) can justify a high P/B so, PE ratio x PB ratio should be less than or equal to 22.5 (source: intelligent investor 1972)<br>
 
 ## Low priority
 write reports in html or csv to allow for line breaks and overall pretty formatting.<br>

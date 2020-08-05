@@ -67,7 +67,8 @@ def research_single():
             sample_stock.run_spider('ticker')
             if sample_stock.ticker is None:
                 print("No ticker found, the company may not be public")
-            print("I found this ticker: " + sample_stock.ticker)
+            else:
+                print("I found this ticker: " + sample_stock.ticker)
         confirm_input = input("Run? (n) to cancel and try again. \n")
         if confirm_input != 'n':
             if name != '':

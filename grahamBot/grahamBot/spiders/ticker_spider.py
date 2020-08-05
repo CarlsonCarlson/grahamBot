@@ -18,6 +18,9 @@ class Spider(scrapy.Spider):
         self.start_urls = \
             ["https://www.marketwatch.com/tools/quotes/lookup.asp?siteID=mktw&Lookup={}&Country=all&Type=Stock" \
                  .format(name)]
+        # TODO: make it work with names with spaces and & symbols
+        #  use Seven & I Holdings as an example
+        # for ^ the name translates to 'Seven+%26+I+Holdings'
 
     def parse(self, response):
         ticker = response.xpath('//*[@id="symbollookup"]/div/table/tbody/tr/td[1]/a/text()').get()
