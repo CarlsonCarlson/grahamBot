@@ -27,6 +27,7 @@ for more in-depth analysis I will try one of these^ <br/>
 ## Spiders TODO:
 quarterly balance sheet spider<br>
 price to book ratio spider<br>
+Price to earnings ratio spider <br>
 
 ## Finish run through all fortune 500 companies function in central
 solve ticker lookup problems<br>
@@ -42,7 +43,6 @@ folder names start with company rank <br>
 have a file that stores all the companies that had data that couldnt be found for further inspection (complete)<br>
 
 # My take on what the intelligent investor says to use to qualify a stock
-TODO: What spiders do I need for Financial Condition and Price Check tests
 ## Earnings and dividends
 diluted EPS increase by 1.33 in the past 10 years using three year averages at the beginning and end (complete)<br>
 Positive earnings over the past 10 years (complete)<br>
@@ -55,10 +55,11 @@ Long-term debt should be less than net working capital (current assets - current
 (for industrial firms) Current ratio should be greater than 2. Current assets should be at least twice current liabilities<br>
 (for public utilities) long term debt should not exceed 2x the share holder equity (total assets-total liabilities) (Intelligent Investor 1972<br>
 ## Price filters
-price to book ratio spider <br>
+price to earnings ratio spider <br>
 7 year P/E < 25 (I. I. 1972 Chapter 5)<br>
 Trailing Twelve Month Average P/E < 20 (I. I. 1972 Chapter 5)<br>
 ### Below is from Chapter 14: 
+Price to book value per share spider <br>
 price should not be more than 15 times the average earnings of the past 3 years (source: intelligent investor 1972)<br>
 Price to book ratio should be no more than 1.5 (source: intelligent investor 1972)<br>
 A low PE ratio (below 15) can justify a high P/B so, PE ratio x PB ratio should be less than or equal to 22.5 (source: intelligent investor 1972)<br>
