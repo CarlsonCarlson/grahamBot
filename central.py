@@ -60,6 +60,7 @@ def run_all_algs(stock):
     graham.earn_inc_by_33_percent_test()
     graham.positive_earnings_test()
     graham.twenty_year_div_record_test()
+    graham.shareholder_equity_to_total_assets()
 
 
 def research_single():

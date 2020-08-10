@@ -16,7 +16,7 @@ class Analyzer:
         # Check if there is an eps column in main_df
         if 'EPS' not in self.stock.main_df.columns:
             self.stock.append_calc_result('EPS increased by 33%?',
-                                          'N/A', 'N/A', 'Could not find EPS on Macrotrends')
+                                          'N/A', 'N/A', 'Could not find EPS on MacroTrends')
             return
         df = self.stock.main_df
 
@@ -94,7 +94,7 @@ class Analyzer:
         # Check if there is an eps column in main_df
         if 'EPS' not in self.stock.main_df.columns:
             self.stock.append_calc_result('Positive earnings record?',
-                                          'N/A', 'N/A', 'Could not find EPS on Macrotrends')
+                                          'N/A', 'N/A', 'Could not find EPS on MacroTrends')
             return
 
         df = self.stock.main_df
@@ -121,7 +121,7 @@ class Analyzer:
     def twenty_year_div_record_test(self):
         if 'Div.Payout' not in self.stock.main_df.columns:
             self.stock.append_calc_result('Uninterrupted Div. Record?',
-                                          'N/A', 'N/A', 'No Div. Payouts found on Macrotrends')
+                                          'N/A', 'N/A', 'No Div. Payouts found on MacroTrends')
             return
 
         df = self.stock.main_df
@@ -144,3 +144,23 @@ class Analyzer:
         elif count == 20:
             self.stock.append_calc_result('Uninterrupted Div. Record?',
                                           count, 'Yes', '')
+
+    def shareholder_equity_to_total_assets(self):
+        """
+        total assets - total liabilities / total assets > 0.5 (Intelligent Investor 1949)
+        """
+        balance_sheet = self.stock.balance_sheet_dict
+
+        # Check for Null values first
+        if 'Total Assets' not in balance_sheet and 'Total Liabilities' not in balance_sheet:
+            self.stock.append_calc_result('At least 50% equity to assets ratio?', 'N/A', 'N/A', 'Not enough data found')
+            return
+
+        value = (balance_sheet['Total Assets'] - balance_sheet['Total Liabilities']) / balance_sheet['Total Assets']
+        criteria_passed = ''
+        if value >= 0.5:
+            criteria_passed = 'Yes'
+        elif value < 0.5:
+            criteria_passed = 'No'
+
+        self.stock.append_calc_result('At least 50% equity to assets ratio?', round(value, 2), criteria_passed, '')

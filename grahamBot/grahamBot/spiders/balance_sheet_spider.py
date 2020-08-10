@@ -51,7 +51,8 @@ class Spider(scrapy.Spider):
                 number = number.replace('"', '')
                 number = number.replace(str(current_quarter), '')
                 number = number.strip(':')
-                balance_sheet_dict.update({category: number})
+                # Turn into number into int and append to dict
+                balance_sheet_dict.update({category: int(number)})
                 # reset
                 category = ''
                 number = ''
