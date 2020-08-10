@@ -48,7 +48,7 @@ Positive earnings over the past 10 years (complete)<br>
 Dividend record should be uninterrupted for 20 years(complete) <br>
 
 ## Strong financial condition
-total assets - total liabilities / total assets > 0.5 (Intelligent Investor 1949)<br>
+total assets - total liabilities / total assets > 0.5 (Intelligent Investor 1949) (complete)<br>
 Long-term debt should be less than net working capital (current assets - current liabilities) (Intelligent Investor 1972)<br>
 (for industrial firms) Current ratio should be greater than 2. Current assets should be at least twice current liabilities<br>
 (for public utilities) long term debt should not exceed 2x the share holder equity (total assets-total liabilities) (Intelligent Investor 1972<br>

@@ -2,22 +2,23 @@ import Stock
 import Analyzer
 import os
 import pandas as pd
+import pprint
 
 
 def main():
     print('\t\trunning grahamBot by CarlsonCarlson @ github.com/CarlsonCarlson.....\n')
-    # complete = False
-    # while not complete:
-    #     input_option = input('Research Single Stock(1) or Run through Fortune500 List(2)?\n Option: ')
-    #     if input_option == '1':
-    #         research_single()
-    #         complete = True
-    #     elif input_option == '2':
-    #         run_f500()
-    #         complete = True
-    #     else:
-    #         print("Option not selected. Try again")
-    research_single()
+    complete = False
+    while not complete:
+        input_option = input('Research Single Stock(1) or Run through Fortune500 List(2)?\n Option: ')
+        if input_option == '1':
+            research_single()
+            complete = True
+        elif input_option == '2':
+            run_f500()
+            complete = True
+        else:
+            print("Option not selected. Try again")
+    # research_single()
     # run_f500()
     print("Complete")
 
@@ -60,35 +61,36 @@ def run_all_algs(stock):
     graham.earn_inc_by_33_percent_test()
     graham.positive_earnings_test()
     graham.twenty_year_div_record_test()
+    graham.shareholder_equity_to_total_assets()
 
 
 def research_single():
     # TODO: make it take EITHER name or ticker, one is required though
-    name = 'apple'
-    ticker = 'AAPL'
-    # name = ''
-    # ticker = ''
-    # confirm = False
-    # while confirm is not True:
-    #     name = input("What is the name of the stock you want to research? ")
-    #     name = name.lower().strip()
-    #     ticker = input("Optional: What is the ticker symbol of this stock? ")
-    #     if ticker == '':
-    #         sample_stock = Stock.Stock(name)
-    #         sample_stock.run_spider('ticker')
-    #         if sample_stock.ticker is None:
-    #             print("No ticker found, the company may not be public")
-    #         else:
-    #             print("I found this ticker: " + sample_stock.ticker)
-    #     confirm_input = input("Run? (n) to cancel and try again. \n")
-    #     if confirm_input != 'n':
-    #         if name != '':
-    #             confirm = True
-    #         else:
-    #             print("Please enter a name. \n")
-    #             confirm = False
-    #     else:
-    #         confirm = False
+    # name = 'apple'
+    # ticker = 'AAPL'
+    name = ''
+    ticker = ''
+    confirm = False
+    while confirm is not True:
+        name = input("What is the name of the stock you want to research? ")
+        name = name.lower().strip()
+        ticker = input("Optional: What is the ticker symbol of this stock? ")
+        if ticker == '':
+            sample_stock = Stock.Stock(name)
+            sample_stock.run_spider('ticker')
+            if sample_stock.ticker is None:
+                print("No ticker found, the company may not be public")
+            else:
+                print("I found this ticker: " + sample_stock.ticker)
+        confirm_input = input("Run? (n) to cancel and try again. \n")
+        if confirm_input != 'n':
+            if name != '':
+                confirm = True
+            else:
+                print("Please enter a name. \n")
+                confirm = False
+        else:
+            confirm = False
     if ticker == '':
         ticker = None
         stock = Stock.Stock(name)
@@ -137,9 +139,10 @@ def run_f500():
         # Check if there is a ticker
         if stock.ticker is None:
             print("no ticker was found for " + company + " on marketwatch/lookup; proceeding to next company")
-            # current_dir = os.getcwd()
             # filepath = os.path.join(current_dir, r'written_files\errors.csv')
-            filepath = 'written_files/errors.csv'
+            current_dir = os.getcwd()
+            filepath = os.path.join(current_dir, 'written_files')
+            filepath = os.path.join(current_dir, 'errors.csv')
             with open(filepath, 'a+', newline='') as error_file:
                 csv_writer = csv.writer(error_file)
                 csv_writer.writerow([i, company, 'no ticker found on marketwatch'])
@@ -151,17 +154,19 @@ def run_f500():
                 print("I could not find any data on {} on macrocharts, they could be a private company".
                       format(stock.name))
                 current_dir = os.getcwd()
-                filepath = os.path.join(current_dir, r'written_files\errors.csv')
+                filepath = os.path.join(current_dir, 'written_files')
+                filepath = os.path.join(current_dir, 'errors.csv')
                 with open(filepath, 'a+', newline='') as error_file:
                     csv_writer = csv.writer(error_file)
                     csv_writer.writerow([i, company, 'stock.main_df is empty'])
             else:
                 run_all_algs(stock)
                 # Check if it passes the test
-                passed_filt = stock.calculations_df.loc['Passed:'] == 'Yes'
+                passed_filt = stock.calculations_df['Passed'] == 'Yes'
                 if passed_filt.all():
                     count += 1
                     print(company + ": " + stock.ticker)
+                    pprint.pprint(stock.balance_sheet_dict, sort_dicts=False)
                     print(stock.main_df.to_string(justify='Center'))
                     print(stock.calculations_df.to_string(justify='center'))
                 # else:
