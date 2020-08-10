@@ -23,14 +23,24 @@ def main():
 
 
 def define_filepath(ticker, name, rank: int = None, list_name: str = None) -> str:
+    """
+    makes directory for files to go in
+    :param ticker: the ticker of the stock
+    :param name: the name of the stock
+    :param rank: the rank of the stock if using a list with a rank
+    :param list_name: the name of the list (i.e f500, personal_watch_list
+    """
     # TODO: test rank and list_name
-    # make directory for files to go in
+
     working_dir = os.getcwd()
     if rank is None and list_name is None:
-        complete_path = os.path.join(working_dir, r'written_files\individual\%s(%s)' % (ticker, name))
+        complete_path = os.path.join(working_dir, 'written_files')
+        complete_path = os.path.join(complete_path, 'individual')
+        complete_path = os.path.join(complete_path, '%s(%s)' % (ticker, name))
     else:
-        complete_path = os.path.join(working_dir, r'written_files\%s\[%d]_%s(%s)' %
-                                     (list_name, rank, ticker, name))
+        complete_path = os.path.join(working_dir, 'written_files')
+        complete_path = os.path.join(complete_path, '%s' % list_name)
+        complete_path = os.path.join(complete_path, '[%d]_%s(%s)' % (rank, ticker, name))
     try:
         os.makedirs(complete_path)
     except FileExistsError:
@@ -99,7 +109,8 @@ def research_single():
         pprint.pprint(stock.balance_sheet_dict, sort_dicts=False)
         stock.write_dataframe('main_report')
         run_all_algs(stock)
-        print(stock.calculations_df.transpose().to_string(justify='center'))
+        stock.calculations_df.set_index('Criterion', inplace=True)
+        print(stock.calculations_df.to_string(justify='center'))
         stock.write_calc_report()
 
 

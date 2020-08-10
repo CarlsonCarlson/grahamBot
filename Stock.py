@@ -11,8 +11,12 @@ class Stock:
         self.dir = directory
         self.main_df = pd.DataFrame()
         self.calculations_df = pd.DataFrame()
-        self.calculations_df['Criterion:'] = ['Value:', 'Passed:', 'Note(s):']
-        self.calculations_df.set_index('Criterion:', inplace=True)
+        # self.calculations_df['Criterion:'] = ['Value:', 'Passed:', 'Note(s):']
+        self.calculations_df['Criterion'] = []
+        self.calculations_df['Value'] = []
+        self.calculations_df['Passed'] = []
+        self.calculations_df['Note(s)'] = []
+        # self.calculations_df.set_index('Criterion:', inplace=True)
         self.balance_sheet_dict = {}
 
         setup()
@@ -65,9 +69,16 @@ class Stock:
         :param criteria_passed: 'Yes' or 'No', this will go in the second row
         :param notes: Where you write any notes on exceptions that occurred
         """
-        list_to_append = [calc_result, criteria_passed, notes]
-        self.calculations_df[calc_title] = list_to_append
-        # self.calculations_df.set_index('Criterion:', inplace=True)
+        # list_to_append = [calc_result, criteria_passed, notes]
+        # self.calculations_df[calc_title] = list_to_append
+        dict_to_append = {
+            "Criterion": calc_title,
+            "Value": calc_result,
+            "Passed": criteria_passed,
+            "Note(s)": notes
+        }
+        self.calculations_df = self.calculations_df.append(dict_to_append, ignore_index=True)
+        # self.calculations_df.set_index('Criterion', inplace=True)
 
     def write_calc_report(self):
         filename = os.path.join(self.dir, '{}({})graham_report.txt'.format(self.ticker, self.name))

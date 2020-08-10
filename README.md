@@ -25,7 +25,6 @@ guru focus also has 30 year financials but you need an account <br/>
 for more in-depth analysis I will try one of these^ <br/>
 
 ## Spiders TODO:
-quarterly balance sheet spider<br>
 price to book ratio spider<br>
 Price to earnings ratio spider <br>
 
@@ -49,7 +48,6 @@ Positive earnings over the past 10 years (complete)<br>
 Dividend record should be uninterrupted for 20 years(complete) <br>
 
 ## Strong financial condition
-quarterly balance sheet spider is all that is required <br>
 total assets - total liabilities / total assets > 0.5 (Intelligent Investor 1949)<br>
 Long-term debt should be less than net working capital (current assets - current liabilities) (Intelligent Investor 1972)<br>
 (for industrial firms) Current ratio should be greater than 2. Current assets should be at least twice current liabilities<br>
