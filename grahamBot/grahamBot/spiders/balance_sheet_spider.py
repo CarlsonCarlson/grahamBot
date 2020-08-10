@@ -32,7 +32,6 @@ class Spider(scrapy.Spider):
         # Get quarterly data from script using:
         raw_list = response.xpath('/html/body/script').re(r'>[-,\s\w()]+<\\|"{}":"[-\w]+'.format(current_quarter))
 
-        # TODO: parse list into dictionary with expected format
         balance_sheet_dict = {}
         category = ''
         number = ''
