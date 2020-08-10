@@ -6,18 +6,18 @@ import pandas as pd
 
 def main():
     print('\t\trunning grahamBot by CarlsonCarlson @ github.com/CarlsonCarlson.....\n')
-    complete = False
-    while not complete:
-        input_option = input('Research Single Stock(1) or Run through Fortune500 List(2)?\n Option: ')
-        if input_option == '1':
-            research_single()
-            complete = True
-        elif input_option == '2':
-            run_f500()
-            complete = True
-        else:
-            print("Option not selected. Try again")
-    # research_single()
+    # complete = False
+    # while not complete:
+    #     input_option = input('Research Single Stock(1) or Run through Fortune500 List(2)?\n Option: ')
+    #     if input_option == '1':
+    #         research_single()
+    #         complete = True
+    #     elif input_option == '2':
+    #         run_f500()
+    #         complete = True
+    #     else:
+    #         print("Option not selected. Try again")
+    research_single()
     # run_f500()
     print("Complete")
 
@@ -42,6 +42,7 @@ def run_all_spiders(stock):
     # Dividends goes first because it has more rows (since 1989)
     stock.run_spider('dividends')
     stock.run_spider('eps')
+    stock.run_spider('balance_sheet')
 
 
 def run_all_algs(stock):
@@ -53,31 +54,31 @@ def run_all_algs(stock):
 
 def research_single():
     # TODO: make it take EITHER name or ticker, one is required though
-    # name = 'apple'
-    # ticker = 'AAPL'
-    name = ''
-    ticker = ''
-    confirm = False
-    while confirm is not True:
-        name = input("What is the name of the stock you want to research? ")
-        name = name.lower().strip()
-        ticker = input("Optional: What is the ticker symbol of this stock? ")
-        if ticker == '':
-            sample_stock = Stock.Stock(name)
-            sample_stock.run_spider('ticker')
-            if sample_stock.ticker is None:
-                print("No ticker found, the company may not be public")
-            else:
-                print("I found this ticker: " + sample_stock.ticker)
-        confirm_input = input("Run? (n) to cancel and try again. \n")
-        if confirm_input != 'n':
-            if name != '':
-                confirm = True
-            else:
-                print("Please enter a name. \n")
-                confirm = False
-        else:
-            confirm = False
+    name = 'apple'
+    ticker = 'AAPL'
+    # name = ''
+    # ticker = ''
+    # confirm = False
+    # while confirm is not True:
+    #     name = input("What is the name of the stock you want to research? ")
+    #     name = name.lower().strip()
+    #     ticker = input("Optional: What is the ticker symbol of this stock? ")
+    #     if ticker == '':
+    #         sample_stock = Stock.Stock(name)
+    #         sample_stock.run_spider('ticker')
+    #         if sample_stock.ticker is None:
+    #             print("No ticker found, the company may not be public")
+    #         else:
+    #             print("I found this ticker: " + sample_stock.ticker)
+    #     confirm_input = input("Run? (n) to cancel and try again. \n")
+    #     if confirm_input != 'n':
+    #         if name != '':
+    #             confirm = True
+    #         else:
+    #             print("Please enter a name. \n")
+    #             confirm = False
+    #     else:
+    #         confirm = False
     if ticker == '':
         ticker = None
         stock = Stock.Stock(name)
@@ -94,9 +95,11 @@ def research_single():
         print("I could not find any data on {}, they could be a private company".format(stock.name))
     else:
         print(stock.main_df.to_string(justify='center'))
+        import pprint
+        pprint.pprint(stock.balance_sheet_dict, sort_dicts=False)
         stock.write_dataframe('main_report')
         run_all_algs(stock)
-        print(stock.calculations_df.to_string(justify='center'))
+        print(stock.calculations_df.transpose().to_string(justify='center'))
         stock.write_calc_report()
 
 

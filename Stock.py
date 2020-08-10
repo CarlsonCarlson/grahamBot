@@ -13,6 +13,7 @@ class Stock:
         self.calculations_df = pd.DataFrame()
         self.calculations_df['Criterion:'] = ['Value:', 'Passed:', 'Note(s):']
         self.calculations_df.set_index('Criterion:', inplace=True)
+        self.balance_sheet_dict = {}
 
         setup()
         # configure_logging()
