@@ -62,6 +62,8 @@ def run_all_algs(stock):
     graham.positive_earnings_test()
     graham.twenty_year_div_record_test()
     graham.shareholder_equity_to_total_assets()
+    graham.long_term_debt_less_than_net_current_assets()
+    graham.curr_ratio_greater_than_2()
 
 
 def research_single():
@@ -130,28 +132,28 @@ def run_f500():
         csv_writer = csv.writer(error_file)
         csv_writer.writerow(['rank', 'company', 'error type', 'debugging notes'])
     for i in range(1, len(f500_df) + 1):
-    # for i in range(45, 50 + 1):
-    # for i in range(1, 6):
-    #     print('Checking {}...'.format(i))
+        # for i in range(45, 50 + 1):
+        # for i in range(1, 6):
+        #     print('Checking {}...'.format(i))
         company = f500_df.loc[i, 'company']
         stock = Stock.Stock(f500_df.loc[i, 'company'])
         stock.run_spider('ticker')
         # Check if there is a ticker
         if stock.ticker is None:
-            print("no ticker was found for " + company + " on marketwatch/lookup; proceeding to next company")
+            print("no ticker was found for " + company + " on Marketwatch lookup; proceeding to next company")
             # filepath = os.path.join(current_dir, r'written_files\errors.csv')
             current_dir = os.getcwd()
             filepath = os.path.join(current_dir, 'written_files')
             filepath = os.path.join(current_dir, 'errors.csv')
             with open(filepath, 'a+', newline='') as error_file:
                 csv_writer = csv.writer(error_file)
-                csv_writer.writerow([i, company, 'no ticker found on marketwatch'])
+                csv_writer.writerow([i, company, 'no ticker found on Marketwatch'])
 
         else:
             print('Checking {}({}); Rank: {}...'.format(stock.ticker, company, i))
             run_all_spiders(stock)
             if stock.main_df.empty:
-                print("I could not find any data on {} on macrocharts, they could be a private company".
+                print("I could not find any data on {} on MacroTrends, they could be a private company".
                       format(stock.name))
                 current_dir = os.getcwd()
                 filepath = os.path.join(current_dir, 'written_files')
@@ -162,7 +164,10 @@ def run_f500():
             else:
                 run_all_algs(stock)
                 # Check if it passes the test
-                passed_filt = stock.calculations_df['Passed'] == 'Yes'
+                passed_filt = stock.calculations_df['Passed'] == 'Yes' \
+                              or stock.calculations_df['Passed'] == 'No, but only applicable to industrial firms' \
+                              or stock.calculations_df['Passed'] == 'No, but only applicable to public utilities' \
+                              or stock.calculations_df['Passed'] == 'N/A'
                 if passed_filt.all():
                     count += 1
                     print(company + ": " + stock.ticker)
@@ -176,7 +181,7 @@ def run_f500():
     stop = perf_counter()
     print(f500_df)
     print("Time elapsed: " + str((stop - start)) + " seconds.")
-    print("Time elapsed: " + str((stop - start)/60) + " minutes.")
+    print("Time elapsed: " + str((stop - start) / 60) + " minutes.")
     print("{} stocks qualified for all tests".format(count))
 
 

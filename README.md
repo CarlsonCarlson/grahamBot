@@ -31,7 +31,7 @@ Price to earnings ratio spider <br>
 ## Finish run through all fortune 500 companies function in central
 solve ticker lookup problems<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Looking up Jabil and eBay gives you AAPL as the ticker for some reason, make it confirm that the text found corresponds with the company<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Other known ticker errors are: Calpine, oshkosh, UGI, M&T, Cintas, S&P Global, intuit, zoetis, AT&T <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Other known ticker errors are: Calpine, oshkosh, UGI, M&T, Cintas, S&P Global, intuit, zoetis, AT&T, NCR <br>
 find out how many companies could not be found on macrotrends<br>
 
 ### Expected behavior: 
@@ -49,9 +49,9 @@ Dividend record should be uninterrupted for 20 years(complete) <br>
 
 ## Strong financial condition
 total assets - total liabilities / total assets > 0.5 (Intelligent Investor 1949) (complete)<br>
-Long-term debt should be less than net working capital (current assets - current liabilities) (Intelligent Investor 1972)<br>
-(for industrial firms) Current ratio should be greater than 2. Current assets should be at least twice current liabilities<br>
-(for public utilities) long term debt should not exceed 2x the share holder equity (total assets-total liabilities) (Intelligent Investor 1972<br>
+Long-term debt should be less than net working capital (current assets - current liabilities) (Intelligent Investor 1972) (complete)<br>
+(for industrial firms) Current ratio should be greater than 2. Current assets should be at least twice current liabilities (complete)<br>
+(for public utilities) long term debt should not exceed 2x the share holder equity (total assets-total liabilities) (Intelligent Investor 1972)<br>
 ## Price filters
 price to earnings ratio spider <br>
 7 year P/E < 25 (I. I. 1972 Chapter 5)<br>

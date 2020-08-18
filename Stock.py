@@ -22,7 +22,7 @@ class Stock:
         setup()
         # configure_logging()
 
-    @wait_for(10)
+    @wait_for(20)
     def run_spider(self, spider_key_word: str):
         from importlib import import_module
         lower_key = spider_key_word.lower()
