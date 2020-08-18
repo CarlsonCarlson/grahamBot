@@ -152,7 +152,8 @@ class Analyzer:
         balance_sheet = self.stock.balance_sheet_dict
 
         # Check for Null values first
-        if 'Total Assets' not in balance_sheet and 'Total Liabilities' not in balance_sheet:
+        # TODO: make the note more specific
+        if 'Total Assets' not in balance_sheet or 'Total Liabilities' not in balance_sheet:
             self.stock.append_calc_result('At least 50% equity to assets ratio?', 'N/A', 'N/A', 'Not enough data found')
             return
 
@@ -164,3 +165,46 @@ class Analyzer:
             criteria_passed = 'No'
 
         self.stock.append_calc_result('At least 50% equity to assets ratio?', round(value, 2), criteria_passed, '')
+
+    def long_term_debt_less_than_net_current_assets(self):
+        """
+        Long-term debt should be less than net working capital(current assets - current liabilities)
+        """
+
+        balance_sheet = self.stock.balance_sheet_dict
+
+        # check for Null values first
+        # TODO: make the note more specific
+        if 'Long Term Debt' not in balance_sheet or 'Total Current Assets' not in balance_sheet \
+                or 'Total Current Liabilities' not in balance_sheet:
+            self.stock.append_calc_result('Long term debt < net current assets?', 'N/A', 'N/A', 'Not enough data found')
+            return
+
+        net_current_assets = (balance_sheet['Total Current Assets']) - (balance_sheet['Total Current Liabilities'])
+        value = net_current_assets - balance_sheet['Long Term Debt']  # the surplus of net current assets to debt
+        criteria_passed = ''
+        if balance_sheet['Long Term Debt'] < net_current_assets:
+            criteria_passed = 'Yes'
+        elif balance_sheet['Long Term Debt'] >= net_current_assets:
+            criteria_passed = 'No'
+
+        self.stock.append_calc_result('Long term debt < Net Current Assets?', value, criteria_passed,
+                                      'Value = Net Current Assets - Debt')
+
+    def curr_ratio_greater_than_2(self):
+        """
+        Current ratio (ratio between current assets and liabilities) is greater than 2 for industrial companies
+        """
+        balance_sheet = self.stock.balance_sheet_dict
+        if 'Total Current Assets' not in balance_sheet or 'Total Current Liabilities' not in balance_sheet:
+            self.stock.append_calc_result('Current ratio > 2 ?', 'N/A', 'N/A', 'Not enough data found')
+            return
+
+        curr_ratio = balance_sheet['Total Current Assets'] / balance_sheet['Total Current Liabilities']
+        criteria_passed = ''
+        if curr_ratio >= 2:
+            criteria_passed = 'Yes'
+        elif curr_ratio < 2:
+            criteria_passed = 'No, but only applicable to industrial firms'
+
+        self.stock.append_calc_result('Current ratio > 2 ?', curr_ratio, criteria_passed, '')

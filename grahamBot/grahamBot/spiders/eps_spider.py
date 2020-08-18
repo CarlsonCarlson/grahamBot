@@ -41,3 +41,18 @@ class Spider(scrapy.Spider):
 
         # Concatenate to main dataframe
         self.stock.concatenate_df(year_eps_df)
+
+        # print('self.stock.name: ' + self.stock.name)
+        # print("start_url: ")
+        # print(self.start_urls[0])
+        # print("response.request.url: ")
+        # print(response.request.url)
+
+        parsed_name = 'default_parsed_name'
+
+        # set stock.name to the correct macro trends name
+        if self.start_urls[0] != response.request.url:
+            parsed_name = response.request.url.split('/')[-2]
+            self.stock.set_attr("name", parsed_name)
+
+        # print('self.stock.name: ' + self.stock.name)
