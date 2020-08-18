@@ -52,12 +52,13 @@ Dividend record should be uninterrupted for 20 years(complete) <br>
 total assets - total liabilities / total assets > 0.5 (Intelligent Investor 1949) (complete)<br>
 Long-term debt should be less than net working capital (current assets - current liabilities) (Intelligent Investor 1972) (complete)<br>
 (for industrial firms) Current ratio should be greater than 2. Current assets should be at least twice current liabilities (complete)<br>
-(for public utilities) long term debt should not exceed 2x the share holder equity (total assets-total liabilities) (Intelligent Investor 1972)<br>
+(for public utilities) long term debt should not exceed 2x the share holder equity (total assets-total liabilities) (Intelligent Investor 1972) (complete)<br>
 ## Price filters
-price to earnings ratio spider <br>
+TODO: price to earnings ratio spider <br>
+### The below are from Chapter 5
 7 year P/E < 25 (I. I. 1972 Chapter 5)<br>
 Trailing Twelve Month Average P/E < 20 (I. I. 1972 Chapter 5)<br>
-### Below is from Chapter 14: 
+### The below are from Chapter 14: 
 Price to book value per share spider <br>
 price should not be more than 15 times the average earnings of the past 3 years (source: intelligent investor 1972)<br>
 Price to book ratio should be no more than 1.5 (source: intelligent investor 1972)<br>

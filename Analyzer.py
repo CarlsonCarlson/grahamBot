@@ -208,3 +208,23 @@ class Analyzer:
             criteria_passed = 'No, but only applicable to industrial firms'
 
         self.stock.append_calc_result('Current ratio > 2 ?', curr_ratio, criteria_passed, '')
+
+    def long_term_debt_less_than_2x_shareholder_equity(self):
+        """
+        long term debt should not exceed 2x the share holder equity (only for public utilities)
+        """
+        balance_sheet = self.stock.balance_sheet_dict
+        if 'Long Term Debt' not in balance_sheet or 'Share Holder Equity' not in balance_sheet:
+            self.stock.append_calc_result('Long term debt < 2 * Shareholder Equity?', 'N/A', 'N/A',
+                                          'Value = Shareholder equity - Long term debt')
+            return
+
+        difference = (2 * balance_sheet['Share Holder Equity']) - balance_sheet['Long Term Debt']
+        criteria_passed = ''
+        if balance_sheet['Long Term Debt'] <= (2 * balance_sheet['Share Holder Equity']):
+            criteria_passed = 'Yes'
+        else:
+            criteria_passed = 'No, but only applicable to public utilities'
+
+        self.stock.append_calc_result('Long term debt < 2 * Shareholder Equity?', difference, criteria_passed,
+                                      'Value = Shareholder equity - Long term debt')
