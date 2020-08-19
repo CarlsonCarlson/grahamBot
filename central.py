@@ -24,10 +24,11 @@ def main():
 
 
 def print_stock(stock):
+    # stock.main_df.set_index('Year', inplace=True)
     print(stock.main_df.to_string(justify='Center'))
     pprint.pprint(stock.balance_sheet_dict, sort_dicts=False)
     pprint.pprint(stock.stats_dict)
-    stock.calculations_df.set_index('Criterion', inplace=True)
+    # stock.calculations_df.set_index('Criterion', inplace=True)
     print(stock.calculations_df.to_string(justify='center'))
 
 
@@ -75,6 +76,7 @@ def run_all_algs(stock):
     graham.curr_ratio_greater_than_2()
     graham.long_term_debt_less_than_2x_shareholder_equity()
     graham.ttm_average_pe_less_than_20()
+    graham.price_to_seven_year_earnings_ratio_less_than_25()
 
 
 def research_single():
@@ -140,8 +142,8 @@ def run_f500():
     with open(filepath, 'w', newline='') as error_file:
         csv_writer = csv.writer(error_file)
         csv_writer.writerow(['rank', 'company', 'error type', 'debugging notes'])
-    # for i in range(1, len(f500_df) + 1):
-    for i in range(325, 330):
+    for i in range(1, len(f500_df) + 1):
+    # for i in range(325, 330):
         company = f500_df.loc[i, 'company']
         stock = Stock.Stock(f500_df.loc[i, 'company'])
         stock.run_spider('ticker')

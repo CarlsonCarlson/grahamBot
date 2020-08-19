@@ -49,13 +49,11 @@ class Spider(scrapy.Spider):
             parsed_name = response.request.url.split('/')[-2]
             self.stock.set_attr("name", parsed_name)
 
-        # set stock.ttm_eps
-
+        # set stock.stats['Trailing 12 Month EPS]
         quarterly_eps_list = response.xpath('//*[@id="style-1"]/div[2]/table/tbody/tr/td[2]/text()').getall()
         for eps in quarterly_eps_list[0:4]:
             eps = float(eps.strip('$'))
             self.stock.stats_dict['Trailing 12 Month EPS'] += eps
 
-        # self.stock.ttm_eps = round(self.stock.ttm_eps, 2)
         self.stock.stats_dict['Trailing 12 Month EPS'] = \
             round(self.stock.stats_dict['Trailing 12 Month EPS'], 2)

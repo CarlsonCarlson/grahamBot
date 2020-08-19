@@ -34,7 +34,7 @@ class Spider(scrapy.Spider):
         div_series = div_series.replace(to_replace=r'"ttm_d":', value='', regex=True)
 
         # Filter series for 'null' and clean data
-        div_series.where(div_series != 'null', inplace=True) # Filter Series
+        div_series.where(div_series != 'null', inplace=True)     # Filter Series
         div_series = div_series.astype(float)
         div_series = div_series.round(decimals=2)
         year_series = pd.Series(year_list)

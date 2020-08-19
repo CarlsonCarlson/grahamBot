@@ -1,5 +1,6 @@
 import pandas as pd
 import datetime
+import numpy as np
 
 
 class Analyzer:
@@ -245,4 +246,54 @@ class Analyzer:
         else:
             criteria_passed = 'No'
         self.stock.append_calc_result('Trailing 12 Month Average EPS < 20 ?', ttm_price_to_earnings_ratio,
+                                      criteria_passed, '')
+
+    def price_to_seven_year_earnings_ratio_less_than_25(self):
+        """
+        7 year P/E < 25 (use EPS in main DF to get 7 year EPS and p/b spider for current price)
+        if there is a 2020 entry than we go 7 years back to 2013, but
+        if there is only a 2019 entry than we go 7 years back to 2012
+        """
+
+        note = ''
+        # check if 'EPS' exists
+        if 'EPS' not in self.stock.main_df.columns:
+            note = note + 'Could not find EPS on MacroTrends. '
+
+        # check if Current price is not 0
+        if self.stock.stats_dict['Current Price'] == 0:
+            note = note + 'Could not find current price on MacroTrends. '
+
+        if note != '':
+            self.stock.append_calc_result('7 year P/E ratio < 25 ?', 'N/A', 'N/A', note)
+            return
+
+        curr_price = self.stock.stats_dict['Current Price']
+        df = self.stock.main_df
+
+        average = 0
+        # i want to use 2020 if not empty and 2019 if 2020 is empty
+        if not np.isnan(df.iloc[0]['EPS']):
+            # 2020 is there
+            past_7_years_df = df.iloc[0: 8]['EPS']
+            average = past_7_years_df.mean()
+        elif np.isnan(df.iloc[0]['EPS']):
+            # 2020 is not there
+            past_7_years_df = df.iloc[1: 9]['EPS']
+            average = past_7_years_df.mean()
+            if np.isnan(df.iloc[1]['EPS']):
+                self.stock.append_calc_result('7 year P/E ratio < 25 ?', 'N/A', 'N/A',
+                                              'No data found for the most recent year')
+                return
+
+        if average == 0:
+            self.stock.append_calc_result('7 year P/E ratio < 25 ?', 'N/A', 'N/A',
+                                          'No average found')
+            return
+        elif (curr_price / average) <= 25:
+            criteria_passed = 'Yes'
+        else:
+            criteria_passed = 'No'
+
+        self.stock.append_calc_result('7 year P/E ratio < 25 ?', (curr_price / average),
                                       criteria_passed, '')

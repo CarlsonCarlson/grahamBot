@@ -2,10 +2,21 @@
 ## Current Features
 Asks for company name, autocompletes ticker<br>
 Writes report of all annual EPS and dividend payouts since 1989 <br>
-Writes report on if EPS increased by 33% in the last 10 years, if dividends have been paid for the last 20 years, and <br>
-if the earnings have been positive for the last 10 years<br>
 takes 26 minutes to run 3 spiders on all 500<br>
 takes 36 minutes to run 4 spiders on all 500<br>
+## Currently Functional Tests:
+### Strong Earnings and dividends
+diluted EPS increase by 1.33 in the past 10 years using three year averages at the beginning and end<br>
+Positive earnings over the past 10 years<br>
+Dividend record should be uninterrupted for 20 years <br>
+### Strong financial condition
+total assets - total liabilities / total assets > 0.5 (Intelligent Investor 1949)<br>
+Long-term debt should be less than net working capital (current assets - current liabilities) (I. I. 1972)<br>
+(for industrial firms) Current ratio should be greater than 2. Current assets should be at least twice current liabilities. <br>
+(for public utilities) long term debt should not exceed 2x the share holder equity (total assets-total liabilities) (I. I. 1972)<br>
+## Price filters
+Trailing Twelve Month Average P/E < 20 (I. I. 1972 Chapter 5)<br>
+7 year P/E < 25 (I. I. 1972 Chapter 5) (use EPS spider to get 7 year EPS and p/b spider for current price)<br>
 
 ##Required Packages:
 
@@ -56,7 +67,7 @@ Long-term debt should be less than net working capital (current assets - current
 ## Price filters
 ### The below are from Chapter 5
 Trailing Twelve Month Average P/E < 20 (I. I. 1972 Chapter 5) (use eps spider to get past 4 quarters, and p/b spider for current price)<br>
-7 year P/E < 25 (I. I. 1972 Chapter 5) (use EPS spider to get 7 year EPS and p/b spider for current price)<br>
+7 year P/E < 25 (I. I. 1972 Chapter 5) (use EPS spider to get 7 year EPS and p/b spider for current price) (complete)<br>
 ### The below are from Chapter 14: 
 TODO: Price to book value per share spider <br>
 price should not be more than 15 times the average earnings of the past 3 years (source: intelligent investor 1972)<br>
