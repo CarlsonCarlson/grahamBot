@@ -42,12 +42,6 @@ class Spider(scrapy.Spider):
         # Concatenate to main dataframe
         self.stock.concatenate_df(year_eps_df)
 
-        # print('self.stock.name: ' + self.stock.name)
-        # print("start_url: ")
-        # print(self.start_urls[0])
-        # print("response.request.url: ")
-        # print(response.request.url)
-
         parsed_name = 'default_parsed_name'
 
         # set stock.name to the correct macro trends name
@@ -55,4 +49,13 @@ class Spider(scrapy.Spider):
             parsed_name = response.request.url.split('/')[-2]
             self.stock.set_attr("name", parsed_name)
 
-        # print('self.stock.name: ' + self.stock.name)
+        # set stock.ttm_eps
+
+        quarterly_eps_list = response.xpath('//*[@id="style-1"]/div[2]/table/tbody/tr/td[2]/text()').getall()
+        for eps in quarterly_eps_list[0:4]:
+            eps = float(eps.strip('$'))
+            self.stock.stats_dict['Trailing 12 Month EPS'] += eps
+
+        # self.stock.ttm_eps = round(self.stock.ttm_eps, 2)
+        self.stock.stats_dict['Trailing 12 Month EPS'] = \
+            round(self.stock.stats_dict['Trailing 12 Month EPS'], 2)

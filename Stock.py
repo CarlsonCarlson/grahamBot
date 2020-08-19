@@ -18,6 +18,9 @@ class Stock:
         self.calculations_df['Note(s)'] = []
         # self.calculations_df.set_index('Criterion:', inplace=True)
         self.balance_sheet_dict = {}
+        self.stats_dict = {'Trailing 12 Month EPS': 0,
+                           'Current Price': 0,
+                           'Book Value per Share': 0}
 
         setup()
         # configure_logging()

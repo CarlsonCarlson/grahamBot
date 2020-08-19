@@ -23,6 +23,14 @@ def main():
     print("Complete")
 
 
+def print_stock(stock):
+    print(stock.main_df.to_string(justify='Center'))
+    pprint.pprint(stock.balance_sheet_dict, sort_dicts=False)
+    pprint.pprint(stock.stats_dict)
+    stock.calculations_df.set_index('Criterion', inplace=True)
+    print(stock.calculations_df.to_string(justify='center'))
+
+
 def define_filepath(ticker, name, rank: int = None, list_name: str = None) -> str:
     """
     makes directory for files to go in
@@ -54,6 +62,7 @@ def run_all_spiders(stock):
     stock.run_spider('dividends')
     stock.run_spider('eps')
     stock.run_spider('balance_sheet')
+    stock.run_spider('price_to_book')
 
 
 def run_all_algs(stock):
@@ -65,6 +74,7 @@ def run_all_algs(stock):
     graham.long_term_debt_less_than_net_current_assets()
     graham.curr_ratio_greater_than_2()
     graham.long_term_debt_less_than_2x_shareholder_equity()
+    graham.ttm_average_pe_less_than_20()
 
 
 def research_single():
@@ -109,14 +119,10 @@ def research_single():
     if stock.main_df.empty:
         print("I could not find any data on {}, they could be a private company".format(stock.name))
     else:
-        print(stock.main_df.to_string(justify='center'))
-        import pprint
-        pprint.pprint(stock.balance_sheet_dict, sort_dicts=False)
-        stock.write_dataframe('main_report')
         run_all_algs(stock)
-        stock.calculations_df.set_index('Criterion', inplace=True)
-        print(stock.calculations_df.to_string(justify='center'))
+        stock.write_dataframe('main_report')
         stock.write_calc_report()
+        print_stock(stock)
 
 
 def run_f500():
@@ -128,12 +134,14 @@ def run_f500():
     f500_df = pd.read_csv(path, index_col='rank', usecols=['rank', 'company'])
     count = 0
     import csv
-    filepath = 'written_files/errors.csv'
+    current_dir = os.getcwd()
+    filepath = os.path.join(current_dir, 'written_files')
+    filepath = os.path.join(current_dir, 'errors.csv')
     with open(filepath, 'w', newline='') as error_file:
         csv_writer = csv.writer(error_file)
         csv_writer.writerow(['rank', 'company', 'error type', 'debugging notes'])
-    for i in range(1, len(f500_df) + 1):
-    # for i in range(325, 330):
+    # for i in range(1, len(f500_df) + 1):
+    for i in range(325, 330):
         company = f500_df.loc[i, 'company']
         stock = Stock.Stock(f500_df.loc[i, 'company'])
         stock.run_spider('ticker')
@@ -166,16 +174,10 @@ def run_f500():
                 filt_list = ['Yes', 'No, but only applicable to industrial firms',
                              'No, but only applicable to public utilities', 'N/A']
                 passed_filt = stock.calculations_df['Passed'].isin(filt_list)
+                print_stock(stock)
                 if passed_filt.all():
                     count += 1
-                    print(company + ": " + stock.ticker)
-                    pprint.pprint(stock.balance_sheet_dict, sort_dicts=False)
-                    print(stock.main_df.to_string(justify='Center'))
-                    print(stock.calculations_df.to_string(justify='center'))
-                # else:
-                #     print(company + ": " + stock.ticker)
-                #     print(stock.main_df.to_string(justify='Center'))
-                #     print(stock.calculations_df.to_string(justify='center'))
+                    print_stock(stock)
     stop = perf_counter()
     print(f500_df)
     print("Time elapsed: " + str((stop - start)) + " seconds.")

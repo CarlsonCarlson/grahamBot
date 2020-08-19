@@ -54,20 +54,20 @@ Long-term debt should be less than net working capital (current assets - current
 (for industrial firms) Current ratio should be greater than 2. Current assets should be at least twice current liabilities (complete)<br>
 (for public utilities) long term debt should not exceed 2x the share holder equity (total assets-total liabilities) (Intelligent Investor 1972) (complete)<br>
 ## Price filters
-TODO: price to earnings ratio spider <br>
 ### The below are from Chapter 5
-7 year P/E < 25 (I. I. 1972 Chapter 5)<br>
-Trailing Twelve Month Average P/E < 20 (I. I. 1972 Chapter 5)<br>
+Trailing Twelve Month Average P/E < 20 (I. I. 1972 Chapter 5) (use eps spider to get past 4 quarters, and p/b spider for current price)<br>
+7 year P/E < 25 (I. I. 1972 Chapter 5) (use EPS spider to get 7 year EPS and p/b spider for current price)<br>
 ### The below are from Chapter 14: 
-Price to book value per share spider <br>
+TODO: Price to book value per share spider <br>
 price should not be more than 15 times the average earnings of the past 3 years (source: intelligent investor 1972)<br>
 Price to book ratio should be no more than 1.5 (source: intelligent investor 1972)<br>
 A low PE ratio (below 15) can justify a high P/B so, PE ratio x PB ratio should be less than or equal to 22.5 (source: intelligent investor 1972)<br>
 
 ## Low priority
+make architecture diagram (UML) for README<br>
+only run price tests on certain list
 write reports in html or csv to allow for line breaks and overall pretty formatting.<br>
 scrape the fortune500 website to get most up to date f500 lists independently, and compile into csv<br>
 create schema_df to explain each criterion<br>
-make architecture diagram (UML) for README<br>
 move everything from grahamBot project dir to top level grahamBot package<br>
 (make sure it still writes files to project)

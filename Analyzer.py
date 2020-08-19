@@ -216,11 +216,10 @@ class Analyzer:
         balance_sheet = self.stock.balance_sheet_dict
         if 'Long Term Debt' not in balance_sheet or 'Share Holder Equity' not in balance_sheet:
             self.stock.append_calc_result('Long term debt < 2 * Shareholder Equity?', 'N/A', 'N/A',
-                                          'Value = Shareholder equity - Long term debt')
+                                          'Not enough data')
             return
 
         difference = (2 * balance_sheet['Share Holder Equity']) - balance_sheet['Long Term Debt']
-        criteria_passed = ''
         if balance_sheet['Long Term Debt'] <= (2 * balance_sheet['Share Holder Equity']):
             criteria_passed = 'Yes'
         else:
@@ -228,3 +227,22 @@ class Analyzer:
 
         self.stock.append_calc_result('Long term debt < 2 * Shareholder Equity?', difference, criteria_passed,
                                       'Value = Shareholder equity - Long term debt')
+
+    def ttm_average_pe_less_than_20(self):
+        """
+        Trailing 12 Month Average P/E < 20 (uses eps spider to get past 4 quarters, and p/b spider for current price)
+        """
+        if self.stock.stats_dict['Current Price'] == 0 or self.stock.stats_dict['Trailing 12 Month EPS'] == 0:
+            self.stock.append_calc_result('Trailing 12 Month Average EPS < 20 ?', 'N/A', 'N/A', 'Not enough data')
+            return
+
+        curr_price = self.stock.stats_dict['Current Price']
+        ttm_average_eps = self.stock.stats_dict['Trailing 12 Month EPS']
+
+        ttm_price_to_earnings_ratio = round(curr_price / ttm_average_eps, 2)
+        if ttm_price_to_earnings_ratio <= 20:
+            criteria_passed = 'Yes'
+        else:
+            criteria_passed = 'No'
+        self.stock.append_calc_result('Trailing 12 Month Average EPS < 20 ?', ttm_price_to_earnings_ratio,
+                                      criteria_passed, '')

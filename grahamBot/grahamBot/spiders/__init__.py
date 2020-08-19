@@ -8,11 +8,11 @@ from grahamBot.grahamBot.spiders.ticker_spider import Spider
 from grahamBot.grahamBot.spiders.eps_spider import Spider
 from grahamBot.grahamBot.spiders.dividends_spider import Spider
 from grahamBot.grahamBot.spiders.balance_sheet_spider import Spider
+from grahamBot.grahamBot.spiders.price_to_book_spider import Spider
 
 # for running scrapy shell
 # from grahamBot.spiders.ticker_spider import Spider
 # from grahamBot.spiders.eps_spider import Spider
 # from grahamBot.spiders.dividends_spider import Spider
 # from grahamBot.spiders.balance_sheet_spider import Spider
-# __all__: scrapy.Spider = ['eps_spider', 'dividends_spider', 'ticker_spider']
-# __all__: scrapy.Spider = ['eps_spider', 'dividends_spider', 'ticker_spider']
+# from grahamBot.spiders.price_to_book_spider import Spider
