@@ -245,8 +245,8 @@ class Analyzer:
             criteria_passed = 'Yes'
         else:
             criteria_passed = 'No'
-        self.stock.append_calc_result('Trailing 12 Month Average EPS < 20 ?', ttm_price_to_earnings_ratio,
-                                      criteria_passed, '')
+        self.stock.append_calc_result('Trailing 12 Month Average P/E Ratio < 20 ?', ttm_price_to_earnings_ratio,
+                                      criteria_passed, 'TTM Average EPS = {}'.format(round(ttm_average_eps, 2)))
 
     def price_to_seven_year_earnings_ratio_less_than_25(self):
         """
@@ -275,11 +275,11 @@ class Analyzer:
         # i want to use 2020 if not empty and 2019 if 2020 is empty
         if not np.isnan(df.iloc[0]['EPS']):
             # 2020 is there
-            past_7_years_df = df.iloc[0: 8]['EPS']
+            past_7_years_df = df.iloc[0: 7]['EPS']
             average = past_7_years_df.mean()
         elif np.isnan(df.iloc[0]['EPS']):
             # 2020 is not there
-            past_7_years_df = df.iloc[1: 9]['EPS']
+            past_7_years_df = df.iloc[1: 8]['EPS']
             average = past_7_years_df.mean()
             if np.isnan(df.iloc[1]['EPS']):
                 self.stock.append_calc_result('7 year P/E ratio < 25 ?', 'N/A', 'N/A',
@@ -295,5 +295,95 @@ class Analyzer:
         else:
             criteria_passed = 'No'
 
-        self.stock.append_calc_result('7 year P/E ratio < 25 ?', (curr_price / average),
-                                      criteria_passed, '')
+        self.stock.append_calc_result('7 year P/E ratio < 25 ?', round((curr_price / average), 2),
+                                      criteria_passed, '7 Year Average EPS = {}'.format(round(average, 2)))
+
+    def price_to_3_year_earnings_less_than_15(self):
+        """
+        Price should not be more than 15 times the average earnings of the past 3 years
+        """
+
+        note = ''
+        # check if 'EPS' exists
+        if 'EPS' not in self.stock.main_df.columns:
+            note = note + 'Could not find EPS on MacroTrends. '
+
+        # check if Current price is not 0
+        if self.stock.stats_dict['Current Price'] == 0:
+            note = note + 'Could not find current price on MacroTrends. '
+
+        if note != '':
+            self.stock.append_calc_result('3 year P/E ratio < 15 ?', 'N/A', 'N/A', note)
+            return
+
+        curr_price = self.stock.stats_dict['Current Price']
+        df = self.stock.main_df
+
+        average = 0
+        # i want to use 2020 if not empty and 2019 if 2020 is empty
+        if not np.isnan(df.iloc[0]['EPS']):
+            # 2020 is there
+            past_3_years_df = df.iloc[0: 3]['EPS']
+            average = past_3_years_df.mean()
+        elif np.isnan(df.iloc[0]['EPS']):
+            # 2020 is not there
+            past_3_years_df = df.iloc[1: 4]['EPS']
+            average = past_3_years_df.mean()
+            if np.isnan(df.iloc[1]['EPS']):
+                self.stock.append_calc_result('3 year P/E ratio < 15 ?', 'N/A', 'N/A',
+                                              'No data found for the most recent year')
+                return
+
+        if average == 0:
+            self.stock.append_calc_result('3 year P/E ratio < 15 ?', 'N/A', 'N/A',
+                                          'No average found')
+            return
+        elif (curr_price / average) <= 15:
+            criteria_passed = 'Yes'
+        else:
+            criteria_passed = 'No'
+
+        self.stock.append_calc_result('3 year P/E ratio < 15 ?', round((curr_price / average), 2),
+                                      criteria_passed, '3 Year Average EPS = {}'.format(round(average, 2)))
+
+    def pb_ratio_less_than_1_point_5(self):
+        """
+        Price to book ratio should be no more than 1.5 (source: intelligent investor 1972)
+        """
+        if self.stock.stats_dict['Book Value per Share'] == 0 or self.stock.stats_dict['Current Price'] == 0:
+            self.stock.append_calc_result('P/B Ratio < 1.5 ?', 'N/A', 'N/A', "Data couldn't be found")
+            return
+
+        book_value = self.stock.stats_dict['Book Value per Share']
+        curr_price = self.stock.stats_dict['Current Price']
+        p_to_b_ratio = round((curr_price / book_value), 2)
+
+        if p_to_b_ratio <= 1.5:
+            criteria_passed = 'Yes'
+        else:
+            criteria_passed = 'No'
+
+        self.stock.append_calc_result('P/B Ratio < 1.5 ?', p_to_b_ratio, criteria_passed, '')
+
+    def graham_number(self):
+        """
+        A low PE ratio (below 15) can justify a high P/B so, PE ratio x PB ratio should be less than or equal to 22.5
+        """
+
+        calc_df = self.stock.calculations_df
+
+        if calc_df.iloc[9]['Value'] == 'N/A' or calc_df.iloc[10]['Value'] == 'N/A':
+            self.stock.append_calc_result('Graham Number less than 22.5 ?', 'N/A', 'N/A', 'Could not obtain 3 Year P/E'
+                                                                                          'or Current P/B Ratios')
+            return
+
+        p_to_e_ratio = calc_df.iloc[9]['Value']
+        p_to_b_ratio = calc_df.iloc[10]['Value']
+        graham_num = round(p_to_e_ratio * p_to_b_ratio, 2)
+
+        if graham_num <= 22.5:
+            criteria_passed = 'Yes'
+        else:
+            criteria_passed = 'No'
+
+        self.stock.append_calc_result('Graham Number less than 22.5 ?', graham_num, criteria_passed, '')

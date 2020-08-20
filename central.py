@@ -77,6 +77,9 @@ def run_all_algs(stock):
     graham.long_term_debt_less_than_2x_shareholder_equity()
     graham.ttm_average_pe_less_than_20()
     graham.price_to_seven_year_earnings_ratio_less_than_25()
+    graham.price_to_3_year_earnings_less_than_15()
+    graham.pb_ratio_less_than_1_point_5()
+    graham.graham_number()
 
 
 def research_single():
