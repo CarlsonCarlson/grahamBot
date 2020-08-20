@@ -33,7 +33,7 @@ All of these tests come from either the original 1949 version or the revised 197
 11. Price to book ratio should be no more than 1.5 (Intelligent Investor 1972 Chapter 14)
 12. A low PE ratio (below 15) can justify a high P/B so, PE ratio x PB ratio should be less than or equal to 22.5 (The text from which the Graham Number was deduced) (I. I. 1972 Chapter 14)
 
-#Required Packages:
+# Required Packages:
 os<br>
 pandas<br>
 scrapy<br>
