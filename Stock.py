@@ -11,12 +11,10 @@ class Stock:
         self.dir = directory
         self.main_df = pd.DataFrame()
         self.calculations_df = pd.DataFrame()
-        # self.calculations_df['Criterion:'] = ['Value:', 'Passed:', 'Note(s):']
         self.calculations_df['Criterion'] = []
         self.calculations_df['Value'] = []
         self.calculations_df['Passed'] = []
         self.calculations_df['Note(s)'] = []
-        # self.calculations_df.set_index('Criterion:', inplace=True)
         self.balance_sheet_dict = {}
         self.stats_dict = {'Trailing 12 Month EPS': 0,
                            'Current Price': 0,
