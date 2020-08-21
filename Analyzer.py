@@ -142,7 +142,7 @@ class Analyzer:
         if count < 20:
             self.stock.append_calc_result('Uninterrupted Div. Record?',
                                           count, 'No', '')
-        elif count == 20:
+        elif count >= 20:
             self.stock.append_calc_result('Uninterrupted Div. Record?',
                                           count, 'Yes', '')
 
@@ -208,7 +208,7 @@ class Analyzer:
         elif curr_ratio < 2:
             criteria_passed = 'No, but only applicable to industrial firms'
 
-        self.stock.append_calc_result('Current ratio > 2 ?', curr_ratio, criteria_passed, '')
+        self.stock.append_calc_result('Current ratio > 2 ?', curr_ratio, criteria_passed, '(Industrial Firms)')
 
     def long_term_debt_less_than_2x_shareholder_equity(self):
         """
@@ -227,7 +227,7 @@ class Analyzer:
             criteria_passed = 'No, but only applicable to public utilities'
 
         self.stock.append_calc_result('Long term debt < 2 * Shareholder Equity?', difference, criteria_passed,
-                                      'Value = Shareholder equity - Long term debt')
+                                      '(Public Utilities) Value = Shareholder equity - Long term debt')
 
     def ttm_average_pe_less_than_20(self):
         """

@@ -47,10 +47,12 @@ def define_filepath(ticker, name, rank: int = None, list_name: str = None) -> st
         complete_path = os.path.join(working_dir, 'written_files')
         complete_path = os.path.join(complete_path, 'individual')
         complete_path = os.path.join(complete_path, '%s(%s)' % (ticker, name))
+        print(complete_path)
     else:
         complete_path = os.path.join(working_dir, 'written_files')
         complete_path = os.path.join(complete_path, '%s' % list_name)
         complete_path = os.path.join(complete_path, '[%d]_%s(%s)' % (rank, ticker, name))
+        print(complete_path)
     try:
         os.makedirs(complete_path)
     except FileExistsError:
@@ -94,7 +96,7 @@ def research_single():
         name = name.lower().strip()
         ticker = input("Optional: What is the ticker symbol of this stock? ")
         if ticker == '':
-            sample_stock = Stock.Stock(name)
+            sample_stock = Stock.Stock(name)  # TODO: making two stock objects
             sample_stock.run_spider('ticker')
             if sample_stock.ticker is None:
                 print("No ticker found, the company may not be public")
@@ -111,7 +113,7 @@ def research_single():
             confirm = False
     if ticker == '':
         ticker = None
-        stock = Stock.Stock(name)
+        stock = Stock.Stock(name)  # making two stock objects and running ticker twice
         stock.run_spider('ticker')
         complete_path = define_filepath(stock.ticker, name)
         stock.dir = complete_path
@@ -141,12 +143,12 @@ def run_f500():
     import csv
     current_dir = os.getcwd()
     filepath = os.path.join(current_dir, 'written_files')
-    filepath = os.path.join(current_dir, 'errors.csv')
+    filepath = os.path.join(filepath, 'errors.csv')
     with open(filepath, 'w', newline='') as error_file:
         csv_writer = csv.writer(error_file)
         csv_writer.writerow(['rank', 'company', 'error type', 'debugging notes'])
     for i in range(1, len(f500_df) + 1):
-    # for i in range(325, 330):
+        # for i in range(325, 330):
         company = f500_df.loc[i, 'company']
         stock = Stock.Stock(f500_df.loc[i, 'company'])
         stock.run_spider('ticker')
@@ -156,7 +158,7 @@ def run_f500():
             # filepath = os.path.join(current_dir, r'written_files\errors.csv')
             current_dir = os.getcwd()
             filepath = os.path.join(current_dir, 'written_files')
-            filepath = os.path.join(current_dir, 'errors.csv')
+            filepath = os.path.join(filepath, 'errors.csv')
             with open(filepath, 'a+', newline='') as error_file:
                 csv_writer = csv.writer(error_file)
                 csv_writer.writerow([i, company, 'no ticker found on Marketwatch'])
@@ -169,7 +171,7 @@ def run_f500():
                       format(stock.name))
                 current_dir = os.getcwd()
                 filepath = os.path.join(current_dir, 'written_files')
-                filepath = os.path.join(current_dir, 'errors.csv')
+                filepath = os.path.join(filepath, 'errors.csv')
                 with open(filepath, 'a+', newline='') as error_file:
                     csv_writer = csv.writer(error_file)
                     csv_writer.writerow([i, company, 'stock.main_df is empty'])
