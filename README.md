@@ -45,22 +45,21 @@ time<br>
 ### Big thanks to https://github.com/cmusam/fortune500 for publishing csv's of the fortune500 lists from 1955-2019
 
 ### Expected behavior TODOs: 
-run through each f500 company and write ones that happen to pass all criteria (their passed row is 'Yes')<br>
-companies that pass all criteria get a folder with a graham report and main report <br>
-folder names start with company rank <br>
-have a file that stores all the companies that had data that couldnt be found for further inspection (complete)<br>
+run through each f500 company and write ordered output
+make ordered output, with highest number of tests passed at the top, and lowest at the bottom.
 
-## Major TODOs: 
-solve ticker lookup problems<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Looking up Jabil and eBay gives you AAPL as the ticker for some reason, make it confirm that the text found corresponds with the company<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Other known ticker errors are: Calpine, oshkosh, UGI, M&T, Cintas, S&P Global, intuit, zoetis, AT&T, NCR <br>
-find out how many companies could not be found on macrotrends<br>
-Make GUI <br>
-only run price tests on certain list<br>
+## Major TODOs in order of importance: 
+only run certain test 'categories' on certain list using settings file<br>
 allow selection of fortune 500 list<br>
 allow importing of lists to run on<br>
+save output using python rename<br>
+solve ticker lookup problems<br>
+&nbsp;&nbsp;&nbsp;Looking up Jabil gives you AAPL as the ticker for some reason, make it confirm that the text found corresponds with the company<br>
+&nbsp;&nbsp;&nbsp;Other known ticker errors are: oshkosh (not at top), Cintas (not at top), intuit(not at top), zoetis(not at top) <br>
+Make GUI <br>
 
 ## TODOs
+Make it only run ticker spider init once<br>
 make architecture diagram (UML) for README<br>
 write reports in html or csv to allow for line breaks and overall pretty formatting.<br>
 scrape the fortune500 website to get most up to date f500 lists independently, and compile into csv<br>
