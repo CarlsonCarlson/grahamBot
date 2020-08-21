@@ -44,13 +44,11 @@ time<br>
 
 ### Big thanks to https://github.com/cmusam/fortune500 for publishing csv's of the fortune500 lists from 1955-2019
 
-### Expected behavior TODOs: 
-run through each f500 company and write ordered output
-make ordered output, with highest number of tests passed at the top, and lowest at the bottom.
-
 ## Major TODOs in order of importance: 
+run through each f500 company and write ordered output (use linked list)
+make ordered output, with highest number of tests passed at the top, and lowest at the bottom.
 only run certain test 'categories' on certain list using settings file<br>
-allow selection of fortune 500 list<br>
+allow selection of fortune 500 list year<br>
 allow importing of lists to run on<br>
 save output using python rename<br>
 solve ticker lookup problems<br>
@@ -58,9 +56,8 @@ solve ticker lookup problems<br>
 &nbsp;&nbsp;&nbsp;Other known ticker errors are: oshkosh (not at top), Cintas (not at top), intuit(not at top), zoetis(not at top) <br>
 Make GUI <br>
 
-## TODOs
+## Minor TODOs in order of importance
 Make it only run ticker spider init once<br>
-make architecture diagram (UML) for README<br>
 write reports in html or csv to allow for line breaks and overall pretty formatting.<br>
 scrape the fortune500 website to get most up to date f500 lists independently, and compile into csv<br>
 create schema_df to explain each criterion<br>
