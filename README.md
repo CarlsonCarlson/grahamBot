@@ -47,7 +47,7 @@ time<br>
 ## Major TODOs in order of importance: 
 run through each f500 company and write ordered output (use linked list)
 make ordered output, with highest number of tests passed at the top, and lowest at the bottom.
-only run certain test 'categories' on certain list using settings file<br>
+only run certain test 'categories' on certain list using settings file (yaml config file + configparser)<br>
 allow selection of fortune 500 list year<br>
 allow importing of lists to run on<br>
 save output using python rename<br>
