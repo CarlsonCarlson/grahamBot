@@ -28,7 +28,7 @@ class Stock:
         from importlib import import_module
         lower_key = spider_key_word.lower()
         module_name = "grahamBot.grahamBot.spiders.{}_spider".format(lower_key)
-        imported_spider_class = import_module(module_name)
+        imported_spider_class = import_module(module_name)  # can't seem to import using this
         arg_dict = {'name': self.name,
                     'ticker': self.ticker,
                     'filepath': self.dir,

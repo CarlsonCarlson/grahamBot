@@ -18,10 +18,16 @@ class Spider(scrapy.Spider):
         import datetime
 
         current_year = datetime.date.today().year
+        # TODO: make it grab the previous year as its latest date if it can't find the current year
 
         # get latest date in 2020 (the current year), if blank, look in current year-1
-        latest_date = response.xpath('/html/body/script').re(r'%s-[\W\d]{,5}' % current_year)[0]
-        converted_latest_date = datetime.datetime.strptime(latest_date, '%Y-%m-%d').date()
+        try:
+            latest_date = response.xpath('/html/body/script').re(r'%s-[\W\d]{,5}' % current_year)[0]
+            converted_latest_date = datetime.datetime.strptime(latest_date, '%Y-%m-%d').date()
+        except IndexError:
+            current_year -= 1
+            latest_date = response.xpath('/html/body/script').re(r'%s-[\W\d]{,5}' % current_year)[0]
+            converted_latest_date = datetime.datetime.strptime(latest_date, '%Y-%m-%d').date()
 
         # current_date = datetime.date.today()
         #

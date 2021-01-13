@@ -272,19 +272,24 @@ class Analyzer:
         df = self.stock.main_df
 
         average = 0
-        # i want to use 2020 if not empty and 2019 if 2020 is empty
+        # i want to use previous year if current year is empty
         if not np.isnan(df.iloc[0]['EPS']):
-            # 2020 is there
+            # present year is there
             past_7_years_df = df.iloc[0: 7]['EPS']
             average = past_7_years_df.mean()
         elif np.isnan(df.iloc[0]['EPS']):
-            # 2020 is not there
+            # present year is not there
             past_7_years_df = df.iloc[1: 8]['EPS']
             average = past_7_years_df.mean()
             if np.isnan(df.iloc[1]['EPS']):
-                self.stock.append_calc_result('7 year P/E ratio < 25 ?', 'N/A', 'N/A',
-                                              'No data found for the most recent year')
-                return
+                # past year is not there either
+                past_7_years_df = df.iloc[2: 9]['EPS']
+                average = past_7_years_df.mean()
+                if np.isnan(df.iloc[2]['EPS']):
+                    self.stock.append_calc_result('7 year P/E ratio < 25 ?', 'N/A', 'N/A',
+                                                  'Must not have filed their annual report for {}'.format(
+                                                      self.current_year - 2))
+                    return
 
         if average == 0:
             self.stock.append_calc_result('7 year P/E ratio < 25 ?', 'N/A', 'N/A',
@@ -322,17 +327,22 @@ class Analyzer:
         average = 0
         # i want to use 2020 if not empty and 2019 if 2020 is empty
         if not np.isnan(df.iloc[0]['EPS']):
-            # 2020 is there
+            # current year is there
             past_3_years_df = df.iloc[0: 3]['EPS']
             average = past_3_years_df.mean()
         elif np.isnan(df.iloc[0]['EPS']):
-            # 2020 is not there
+            # current year is not there
             past_3_years_df = df.iloc[1: 4]['EPS']
             average = past_3_years_df.mean()
             if np.isnan(df.iloc[1]['EPS']):
-                self.stock.append_calc_result('3 year P/E ratio < 15 ?', 'N/A', 'N/A',
-                                              'No data found for the most recent year')
-                return
+                # past year is not there either
+                past_7_years_df = df.iloc[2: 5]['EPS']
+                average = past_7_years_df.mean()
+                if np.isnan(df.iloc[2]['EPS']):
+                    self.stock.append_calc_result('7 year P/E ratio < 25 ?', 'N/A', 'N/A',
+                                                  'Must not have filed their annual report for {}'.format(
+                                                      self.current_year - 2))
+                    return
 
         if average == 0:
             self.stock.append_calc_result('3 year P/E ratio < 15 ?', 'N/A', 'N/A',

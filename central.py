@@ -1,5 +1,3 @@
-import Stock
-import Analyzer
 import os
 import pandas as pd
 import pprint
@@ -69,6 +67,9 @@ def run_all_spiders(stock):
 
 
 def run_all_algs(stock):
+    import sys
+    sys.path.append("/Users/carlsoncheng/PycharmProjects/grahamBot")
+    import Analyzer
     graham = Analyzer.Analyzer(stock)
     graham.earn_inc_by_33_percent_test()
     graham.positive_earnings_test()
@@ -85,6 +86,10 @@ def run_all_algs(stock):
 
 
 def research_single():
+    import sys
+    sys.path.append("/Users/carlsoncheng/PycharmProjects/grahamBot")
+    sys.path.append("/Users/carlsoncheng/PycharmProjects/grahamBot/grahamBot/grahamBot")
+    import Stock
     # TODO: make it take EITHER name or ticker, one is required though
     # name = 'apple'
     # ticker = 'AAPL'
@@ -133,6 +138,9 @@ def research_single():
 
 
 def run_f500():
+    import sys
+    sys.path.append("/Users/carlsoncheng/PycharmProjects/grahamBot")
+    import Stock
     # year = input("Which f500 year do you want to run through (1955-2019)? ")
     year = '2019'
     path = 'fortune500/fortune500-' + year + '.csv'
